@@ -10,11 +10,11 @@ const userLogin = async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase() }).select(
       "+password"
     );
-    if (!user) return res.status(401).send("Invalid credentials");
+    if (!user) return res.status(401).json({message:"invalid credentials"});
 
     const isPasssword = await bcrypt.compare(password, user.password);
 
-    if (!isPasssword) return res.status(401).send("invalid credentials");
+    if (!isPasssword) return res.status(401).json({message:"invalid credentials"});
 
     const payload = { userId: user._id };
 
@@ -29,7 +29,7 @@ const userLogin = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
-    return res.status(500).send("server error");
+    return res.status(500).json({message:"server error"});
   }
 };
 export { userLogin };
