@@ -20,7 +20,15 @@ const UserSchema = new Schema(
     },
     profilePicUrl: {
       type: String,
+      default:"https://res.cloudinary.com/indersingh/image/upload/v1593464618/App/user_mklcpl.png"
     },
+    mobileNum:{
+     type:String,
+    },
+    about:{
+    type:String
+    },
+    
     newMessagePopup: {
       type: Boolean,
       default: true,

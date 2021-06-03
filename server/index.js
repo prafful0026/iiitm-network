@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/connectDB.js"
 import userRoutes from "./routes/UserRoutes.js"
+import studentRoutes from "./routes/StudentRoutes.js"
 dotenv.config();
 connectDB();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 //     });
 //   }
 app.use("/api/user/", userRoutes);
+app.use("/api/student/", studentRoutes);
+
 app.get("/", (req, res) => {
   res.send("yo");
 });

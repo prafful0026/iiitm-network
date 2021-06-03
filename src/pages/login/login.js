@@ -2,20 +2,21 @@ import {useEffect,useState} from "react"
 import {useSelector,useDispatch} from "react-redux"
 import {userLogin} from "../../redux/actions/UserActions"
 import classes from "./login.module.css";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const history=useHistory()
   const loginInfo = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = loginInfo;
 
   useEffect(() => {
-    console.log(loading);
-    console.log(error);
-    console.log(userInfo);
-  }, [loading, error, userInfo]);
+    if(userInfo)
+    history.push("/")
+
+  }, [history,userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();

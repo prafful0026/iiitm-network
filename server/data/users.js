@@ -12,12 +12,21 @@ const users = [
     email: "bcs_2019039@iiitm.ac.in",
     password: bcrypt.hashSync("1234", 10),
     role: "student",
+    rollNumber:"2019bcs-039"
   },
   {
     name: "adarsh tiwari",
     email: "imt_2019110@iiitm.ac.in",
     password: bcrypt.hashSync("1234", 10),
     role: "student",
+    rollNumber:"2019imt-110"
+  },
+  {
+    name: "harshit dave",
+    email: "imt_2019036@iiitm.ac.in",
+    password: bcrypt.hashSync("1234", 10),
+    role: "student",
+    rollNumber:"2019imt-036"
   },
   {
     name: "jalaj varshney",

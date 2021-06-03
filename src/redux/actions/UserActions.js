@@ -16,12 +16,15 @@ export const userLogin = (email, password) => async (dispatch) => {
           "Content-Type": "application/json",
         },
       };
-      const user={email:email,password:password}
+      // const user={email:email,password:password}
       const { data } = await axios.post(
         `${BASE_URL}/api/user/login`,
-        {user:user},
+        {email:email,password:password},
         config
       );
+      
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: data,
