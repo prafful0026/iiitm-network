@@ -1,0 +1,3 @@
+export const POST_GET_REQUEST = "POST_GET_REQUEST";
+export const POST_GET_SUCCESS = "POST_GET_SUCCESS";
+export const POST_GET_FAIL = "POST_GET_FAIL";

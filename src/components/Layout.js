@@ -1,23 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import { Children } from "react";
+import NavBar from "./AppBar";
 
 const drawerWidth = 240;
 
@@ -25,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+  appBarRoot:{flexGrow:1},
+  appTitle:{flexGrow:1},
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
@@ -32,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
+    // flex:1,
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -66,7 +60,7 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
   const menuItems = [
-    { text: "Discussion Forums", path: "/forums" },
+    { text: "Discussion Forums", path: "/discuss" },
     { text: "Students", path: "/student" },
     { text: "Faculties", path: "/faculty" },
     { text: "Admins", path: "/admin" },
@@ -96,22 +90,8 @@ function ResponsiveDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-        <AppBar position='fixed' className={classes.appBar}>
-            <Toolbar>
-            <IconButton
-                color='inherit'
-                aria-label='open drawer'
-                edge='start'
-                onClick={handleDrawerToggle}
-                className={classes.menuButton}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant='h5' noWrap>
-                IIITM NETWORK
-            </Typography>
-            </Toolbar>
-        </AppBar>
+  <NavBar handleDrawerToggle={handleDrawerToggle} />
+
       <nav className={classes.drawer} aria-label='mailbox folders'>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation='css'>

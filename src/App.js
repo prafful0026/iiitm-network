@@ -6,6 +6,8 @@ import Alumni from "./pages/Alumni";
 import Student from "./pages/Student";
 import Faculty from "./pages/Faculty";
 import Admin from "./pages/Admin";
+import Forum from "./pages/Forum"
+import Posts from "./pages/Posts";
 import { useSelector } from "react-redux";
 const App = () => {
   const loginInfo = useSelector((state) => state.userLogin);
@@ -22,6 +24,8 @@ const App = () => {
             <Route path='/faculty' component={Faculty} exact />
             <Route path='/alumni' component={Alumni} exact />
             <Route path='/Admin' component={Admin} exact />
+            <Route path='/discuss' component={Forum} exact />
+            <Route path='/discuss/:id' component={Posts} exact />
             <Route path='*'>
               <Redirect to='/' />
             </Route>
