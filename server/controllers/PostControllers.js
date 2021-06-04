@@ -26,7 +26,7 @@ const getPostByCategory = async (req, res) => {
   try {
     const posts = await Post.find({
       postCategory: req.params.postCategory,
-    }).populate("user");
+    }).populate("user").sort({ createdAt: -1 });
 
     if (!posts) {
       return res.status(404).json({ message: "Post Not Found" });

@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import CreatePost from "../components/CreatePost";
 import PostCard from "../components/PostCard";
 import { getPosts } from "../redux/actions/PostActions";
@@ -13,13 +13,13 @@ const createStyles = makeStyles({
   },
 });
 const Posts = () => {
- 
+  const [success,setSuccess]=useState(false)
   const dispatch = useDispatch();
   const classes = createStyles();
 
   useEffect(() => {
     dispatch(getPosts("placement"));
-  }, [dispatch]);
+  }, [dispatch,success]);
   const postState = useSelector(
     (state) => state.postsByCategory
   );
@@ -27,7 +27,7 @@ const Posts = () => {
 
   return (
     <div className={classes.root}>
-      <CreatePost className={classes.createPost} />
+      <CreatePost className={classes.createPost} success={success} setSuccess={setSuccess}  />
       {loading ? (
         <h1>loading.....</h1>
       ) : (

@@ -1,6 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { Typography, TextField, Button, makeStyles } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
+import {createPost} from "../redux/actions/PostActions.js"
 
 const useStyles = makeStyles({
   formStyles:{
@@ -11,13 +12,21 @@ const useStyles = makeStyles({
   }
 });
 
-const CreatePost = () => {
+const CreatePost = ({setSuccess,success:postSuccess}) => {
+  const {success,loading,error}=useSelector(state=>state.postCreate)
+  const dispatch=useDispatch()
     const [postTitle,setPostTitle]=useState("")
     const [postDesc,setPostDesc]=useState("")
   const submitHanler = (e) => {
     e.preventDefault();
-    console.log({postTitle,postDesc});
+   dispatch(createPost({postTitle,postDesc,postCategory:"placement"}))
+   setPostTitle("")
+   setPostDesc("")
   };
+  useEffect(() => {
+     if(success)
+     setSuccess(!postSuccess)
+  }, [success])
   const titleInput=(e)=>setPostTitle(e.target.value)
   const descInput=(e)=>setPostDesc(e.target.value)
   const classes = useStyles();
