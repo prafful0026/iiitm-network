@@ -42,10 +42,12 @@ import {
           type: POST_CREATE_REQUEST,
         });
   
-       await Axios.post(`/create`,{postCategory,postTitle,postDesc})
+       const {data}=await Axios.post(`/create`,{postCategory,postTitle,postDesc})
+      //  console.log(data)
   
         dispatch({
           type: POST_CREATE_SUCCESS,
+          payload:data
         });
       } catch (error) {
         dispatch({

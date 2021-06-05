@@ -13,7 +13,9 @@ const createPost = async (req, res) => {
     };
     const newPost = new Post(postData);
     await newPost.save();
-    if (newPost) res.status(200).json({ message: "Post created successfully" });
+    // await newPost.populate("user")
+    const fetchPost=await Post.findOne({_id:newPost._id}).populate("user")
+    if (newPost) res.status(200).json(fetchPost);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "server error" });

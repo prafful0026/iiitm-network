@@ -13,13 +13,13 @@ const createStyles = makeStyles({
   },
 });
 const Posts = () => {
-  const [success,setSuccess]=useState(false)
+  // const [success,setSuccess]=useState(false)
   const dispatch = useDispatch();
   const classes = createStyles();
 
   useEffect(() => {
     dispatch(getPosts("placement"));
-  }, [dispatch,success]);
+  }, [dispatch]);
   const postState = useSelector(
     (state) => state.postsByCategory
   );
@@ -27,7 +27,7 @@ const Posts = () => {
 
   return (
     <div className={classes.root}>
-      <CreatePost className={classes.createPost} success={success} setSuccess={setSuccess}  />
+      <CreatePost className={classes.createPost}   />
       {loading ? (
         <h1>loading.....</h1>
       ) : (

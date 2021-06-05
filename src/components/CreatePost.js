@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Typography, TextField, Button, makeStyles } from "@material-ui/core";
 import {createPost} from "../redux/actions/PostActions.js"
+import {NEW_POST_ADD} from "../redux/constants/PostConstants"
 
 const useStyles = makeStyles({
   formStyles:{
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 const CreatePost = ({setSuccess,success:postSuccess}) => {
-  const {success,loading,error}=useSelector(state=>state.postCreate)
+  const {success,loading,error,newPost}=useSelector(state=>state.postCreate)
   const dispatch=useDispatch()
     const [postTitle,setPostTitle]=useState("")
     const [postDesc,setPostDesc]=useState("")
@@ -25,7 +26,7 @@ const CreatePost = ({setSuccess,success:postSuccess}) => {
   };
   useEffect(() => {
      if(success)
-     setSuccess(!postSuccess)
+     dispatch({type:NEW_POST_ADD,payload:newPost})
   }, [success])
   const titleInput=(e)=>setPostTitle(e.target.value)
   const descInput=(e)=>setPostDesc(e.target.value)
