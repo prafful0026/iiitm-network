@@ -1,5 +1,5 @@
 import Post from "../models/PostModel.js";
-
+import User from "../models/UserModel.js";
 //CREATE POST
 
 const createPost = async (req, res) => {
@@ -41,4 +41,32 @@ const getPostByCategory = async (req, res) => {
     return res.status(500).send({ message: "server error" });
   }
 };
-export { createPost, getPostByCategory };
+
+//DELETE POST BY ID
+
+const deletePost=async (req,res)=> {
+  try {
+    const { userId } = req;
+    const { postId } = req.params;
+
+    const post = await Post.findOne({_id:postId});
+    if (!post) return res.status(404).send("post not found");
+
+    const user = await User.findById(userId);
+    if (post.user.toString() != userId) {
+      if (user.role === "root") {
+        await post.remove();
+        return res.status(200).send("post deleted successfully");
+      } else {
+        return res.status(401).send("unauthorized user");
+      }
+    } else {
+      await post.remove();
+      return res.status(200).send("post deleted successfully");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("server error");
+  }
+};
+export { deletePost,createPost, getPostByCategory };

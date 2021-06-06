@@ -44,7 +44,7 @@ const UserSchema = new Schema(
     role: {
       type: String,
       required:true,
-      enum: ["student", "faculty", "alumni", "root"],
+      enum: ["student","admin", "faculty", "alumni", "root"],
     },
     resetToken: {
       type: String,
