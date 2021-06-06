@@ -2,7 +2,6 @@ import React, { useState, useEffect,useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, TextField, Button, makeStyles } from "@material-ui/core";
 import { createPost } from "../redux/actions/PostActions.js";
-import { NEW_POST_ADD } from "../redux/constants/PostConstants";
 
 const useStyles = makeStyles({
   formStyles: {
@@ -49,9 +48,9 @@ const CreatePost = ({ location }) => {
     setPostTitle("");
     setPostDesc("");
   };
-  useEffect(() => {
-    if (success) dispatch({ type: NEW_POST_ADD, payload: newPost });
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) 
+  // }, [success]);
 
   const titleInput = (e) => setPostTitle(e.target.value);
   const descInput = (e) => setPostDesc(e.target.value);

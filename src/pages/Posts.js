@@ -41,6 +41,8 @@ const Posts = () => {
               userProfilePic={post.user.profilePicUrl}
               createdAt={post.createdAt}
               picUrl={post.picUrl}
+              userId={post.user._id}
+              postId={post._id}
             />
           ))
         )}

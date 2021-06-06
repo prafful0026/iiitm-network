@@ -28,7 +28,7 @@ const userLogin = async (req, res) => {
       { expiresIn: "24h" },
       (err, token) => {
         if (err) throw err;
-        res.status(200).json(token);
+        res.status(200).json({token:token,userId:user._id,userRole:user.role});
       }
     );
   } catch (error) {
@@ -72,7 +72,7 @@ const userSignup = async (req, res) => {
       { expiresIn: "24h" },
       (err, token) => {
         if (err) throw err;
-        res.status(200).json(token);
+        res.status(200).json({token:token,userId:user._id,userRole:user.role});
       }
     );
   } catch (error) {
