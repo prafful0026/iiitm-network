@@ -4,12 +4,13 @@ import Post from "../models/PostModel.js";
 
 const createPost = async (req, res) => {
   try {
-    const { postCategory, postTitle, postDesc } = req.body;
+    const { postCategory, postTitle, postDesc,picUrl } = req.body;
     const postData = {
       user: req.userId,
       postTitle: postTitle.toUpperCase(),
       postDesc,
       postCategory,
+      picUrl
     };
     const newPost = new Post(postData);
     await newPost.save();

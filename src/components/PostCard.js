@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import { CardMedia } from '@material-ui/core';
+import CalculateTime from "../utils/calculateTime";
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostCard({postTitle,postDesc,userName}) {
+export default function PostCard({postTitle,postDesc,userName,userProfilePic,createdAt,picUrl}) {
   const classes = useStyles();
 
 
@@ -42,13 +45,17 @@ export default function PostCard({postTitle,postDesc,userName}) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar> 
+          <Avatar src={userProfilePic} aria-label="recipe" className={classes.avatar} />
         }
         title={userName.toUpperCase()}
-        subheader="September 14, 2016"
+        subheader={ <CalculateTime createdAt={createdAt}/>}
       />
+         <CardMedia
+        // className={classes.media}
+        image={picUrl}
+        title="Paella dish"
+      ><img style={{height:"100%",width:"100%"}} src={picUrl} />
+        </CardMedia>
       <CardContent>
       <Typography variant="h6" >
        {postTitle}

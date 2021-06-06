@@ -26,9 +26,9 @@ const App = () => {
             <Route path='/Admin' component={Admin} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/discuss/:id' component={Posts} exact />
-            <Route path='*'>
+            {/* <Route path='*'>
               <Redirect to='/' />
-            </Route>
+            </Route> */}
           </Layout>
         )}
         <Route path='*'>
