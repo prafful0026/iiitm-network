@@ -43,6 +43,7 @@ const Posts = () => {
               picUrl={post.picUrl}
               userId={post.user._id}
               postId={post._id}
+              likes={post.likes}
             />
           ))
         )}

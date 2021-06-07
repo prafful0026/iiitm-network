@@ -10,7 +10,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { Badge } from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { USER_LOGOUT } from "../redux/constants/UserConstants";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const drawerWidth = 240;
 

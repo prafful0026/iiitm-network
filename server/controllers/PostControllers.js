@@ -71,4 +71,45 @@ const deletePost = async (req, res) => {
     return res.status(500).json({ message: "server error" });
   }
 };
-export { deletePost, createPost, getPostByCategory };
+
+
+//LIKE A POST
+
+const likePost= async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { userId } = req;
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({message:"No Post found"});
+    }
+
+  
+    const isLiked =
+      post.likes.filter(like => like.user.toString() === userId).length > 0;
+
+    if (isLiked) {
+      const index = post.likes.map(like => like.user.toString()).indexOf(userId);
+      await post.likes.splice(index, 1);  
+
+      await post.save()
+
+      return res.status(200).json({message:"Post disliked",isLiked});
+    }
+
+    await post.likes.unshift({ user: userId });
+    await post.save();
+
+    // if (post.user.toString() !== userId) {
+    //   await newLikeNotification(userId, postId, post.user.toString());
+    // }
+
+    return res.status(200).json({message:"Post liked",isLiked});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({message:`Server error`});
+  }
+};
+
+export { deletePost, createPost, getPostByCategory,likePost };

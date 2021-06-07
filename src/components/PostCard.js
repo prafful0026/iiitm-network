@@ -15,6 +15,8 @@ import CalculateTime from "../utils/calculateTime";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { useSelector,useDispatch } from "react-redux";
 import { deletePost } from "../redux/actions/PostActions";
+import { Badge } from "@material-ui/core";
+import {likePost} from "../redux/actions/PostActions"
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 30,
@@ -54,7 +56,8 @@ export default function PostCard({
   createdAt,
   picUrl,
   userId,
-  postId
+  postId,
+  likes
 }) {
   const dispatch=useDispatch()
   const loginInfo = useSelector((state) => state.userLogin);
@@ -67,6 +70,9 @@ export default function PostCard({
 
   const handleDelete=()=>{
    dispatch(deletePost(postId))
+  } 
+  const likePostHandler=()=>{
+    dispatch(likePost(postId))
   }
 
   return (
@@ -103,8 +109,13 @@ export default function PostCard({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
+        <IconButton aria-label='add to favorites' onClick={likePostHandler}>
+         < Badge badgeContent={likes.length} color='secondary'>
+        {
+          likes.find(like=>like.user===userInfo.userId) ?(<><FavoriteIcon color="primary"  /></>):(<FavoriteIcon />)
+        }
+         
+            </Badge>
         </IconButton>
         <IconButton aria-label='share'>
           <ShareIcon />

@@ -9,7 +9,12 @@ import {
   POST_DELETE_REQUEST,
   POST_DELETE_FAIL,
   POST_DELETE_SUCCESS,
-  POST_DELETE_UPDATE
+  POST_DELETE_UPDATE,
+  POST_LIKE_UPDATE,
+  POST_LIKE_REQUEST,
+  POST_LIKE_SUCCESS,
+  POST_LIKE_FAIL,
+  POST_DISLIKE_UPDATE
 } from "../constants/PostConstants";
 
 export const getPostsReduer = (state = { posts: [] }, action) => {
@@ -25,13 +30,38 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
         ...state,
         posts: [action.payload, ...state.posts],
       };
-
     }
-    case POST_DELETE_UPDATE:{
+    case POST_DELETE_UPDATE: {
       return {
         ...state,
-       posts: state.posts.filter(post => post._id !== action.payload)
-      }
+        posts: state.posts.filter((post) => post._id !== action.payload),
+      };
+    }
+    case POST_LIKE_UPDATE: {
+      let index=state.posts.findIndex(post=>post._id===action.payload.postId)
+      let post=state.posts.find((post) => post._id === action.payload.postId)
+      let likes=post.likes
+      return {
+        ...state,
+        posts: [
+          ...state.posts.slice(0,index),
+          post={...post,likes:[{user:action.payload.userId},...likes]},
+          ...state.posts.slice(index+1,),
+        ],
+      };
+    }
+    case POST_DISLIKE_UPDATE:{
+      let index=state.posts.findIndex(post=>post._id===action.payload.postId)
+      let post=state.posts.find((post) => post._id === action.payload.postId)
+      let likes=post.likes
+      return {
+        ...state,
+        posts: [
+          ...state.posts.slice(0,index),
+          post={...post,likes:likes.filter(like=>like.user!==action.payload.userId)},
+          ...state.posts.slice(index+1,),
+        ],
+      };
     }
     default:
       return state;
@@ -56,7 +86,7 @@ export const deletePostsReduer = (state = {}, action) => {
     case POST_DELETE_REQUEST:
       return { success: false, loading: true };
     case POST_DELETE_SUCCESS:
-      return { loading: false, success: true};
+      return { loading: false, success: true };
     case POST_DELETE_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -64,3 +94,15 @@ export const deletePostsReduer = (state = {}, action) => {
   }
 };
 
+export const likePostsReduer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_LIKE_REQUEST:
+      return { success: false, loading: true };
+    case POST_LIKE_SUCCESS:
+      return { loading: false, success: true };
+    case POST_LIKE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
