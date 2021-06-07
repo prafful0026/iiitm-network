@@ -8,6 +8,10 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Avatar } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
 import { Badge } from "@material-ui/core";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { USER_LOGOUT } from "../redux/constants/UserConstants";
+import { useDispatch } from "react-redux";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -45,12 +49,19 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginRight:20
   },
+  logout:{
+    color:"white"
+  }
 }));
 
 function NavBar({ handleDrawerToggle }) {
+  const dispatch=useDispatch()
   const classes = useStyles();
   const theme = useTheme();
-
+  const logoutHandler=()=>{
+     localStorage.removeItem("userInfo")
+     dispatch({type:USER_LOGOUT})
+  }
   return (
     <div className={classes.appBarRoot}>
       <AppBar position='fixed' className={classes.appBar}>
@@ -67,6 +78,9 @@ function NavBar({ handleDrawerToggle }) {
           <Typography variant='h5' noWrap className={classes.appTitle}>
             IIITM NETWORK
           </Typography>
+          <IconButton onClick={logoutHandler}>
+            <ExitToAppIcon className={classes.logout} />
+          </IconButton>
           <IconButton  className={classes.chat}>
             <Badge badgeContent={4} color='secondary'>
               <ChatIcon />
