@@ -11,7 +11,7 @@ import { Badge } from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { USER_LOGOUT } from "../redux/constants/UserConstants";
 import { useDispatch,useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -81,11 +81,15 @@ function NavBar({ handleDrawerToggle }) {
           <IconButton onClick={logoutHandler}>
             <ExitToAppIcon className={classes.logout} />
           </IconButton>
+  
+          <Link to="/chat">
           <IconButton  className={classes.chat}>
             <Badge badgeContent={4} color='secondary'>
               <ChatIcon />
             </Badge>
           </IconButton>
+          </Link>
+  
           <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
         </Toolbar>
       </AppBar>

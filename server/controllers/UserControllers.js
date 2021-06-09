@@ -3,6 +3,7 @@ import Student from "../models/StudentModel.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import pkg from 'validator';
+import Chat from "../models/ChatModel.js"
 const { isEmail } = pkg;
 
 
@@ -19,6 +20,10 @@ const userLogin = async (req, res) => {
     const isPasssword = await bcrypt.compare(password, user.password);
 
     if (!isPasssword) return res.status(401).json({message:"invalid credentials"});
+   
+    const chat=await Chat.findOne({user:user._id})
+    if(!chat)
+    await new Chat({ user: user._id, chats: [] }).save();
 
     const payload = { userId: user._id };
 
@@ -65,6 +70,7 @@ const userSignup = async (req, res) => {
         })
         await student.save()
     }
+    await new Chat({ user: user._id, chats: [] }).save();
     const payload = { userId: user._id };
     jwt.sign(
       payload,

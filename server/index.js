@@ -5,6 +5,7 @@ import connectDB from "./config/connectDB.js"
 import userRoutes from "./routes/UserRoutes.js"
 import studentRoutes from "./routes/StudentRoutes.js"
 import postRoutes from "./routes/PostRoutes.js"
+import chatRoutes from "./routes/ChatRoutes.js"
 dotenv.config();
 connectDB();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/api/user/", userRoutes);
 app.use("/api/student/", studentRoutes);
 app.use("/api/post/", postRoutes);
+app.use("/api/chat/", chatRoutes);
 
 app.get("/", (req, res) => {
   res.send("yo");

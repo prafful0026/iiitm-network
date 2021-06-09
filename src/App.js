@@ -8,6 +8,7 @@ import Faculty from "./pages/Faculty";
 import Admin from "./pages/Admin";
 import Forum from "./pages/Forum"
 import Posts from "./pages/Posts";
+import Chat from "./pages/Chat"
 import { useSelector } from "react-redux";
 const App = () => {
   const loginInfo = useSelector((state) => state.userLogin);
@@ -26,6 +27,7 @@ const App = () => {
             <Route path='/Admin' component={Admin} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/discuss/:id' component={Posts} exact />
+            <Route path='/chat' component={Chat} exact />
             {/* <Route path='*'>
               <Redirect to='/' />
             </Route> */}
