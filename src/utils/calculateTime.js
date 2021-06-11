@@ -21,7 +21,7 @@ const calculateTime = ({ createdAt }) => {
   } else if (diffInHours > 36) {
     return (
       <>
-        {/* <Moment format='DD/MM/YYYY hh:mm A'>{createdAt}</Moment> */}hi
+        <Moment format='DD/MM/YYYY hh:mm A'>{createdAt}</Moment>
       </>
     );
   }

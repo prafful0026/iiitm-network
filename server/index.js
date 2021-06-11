@@ -6,12 +6,48 @@ import userRoutes from "./routes/UserRoutes.js"
 import studentRoutes from "./routes/StudentRoutes.js"
 import postRoutes from "./routes/PostRoutes.js"
 import chatRoutes from "./routes/ChatRoutes.js"
+import http from 'http'
+import { loadMessages } from "./utils/MessagesUtils.js";
+import { Server } from 'socket.io';
+
 dotenv.config();
 connectDB();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const server = http.createServer(app); 
+const io = new Server(server,{
+  cors: {
+    origin: '*',
+  }
+});
+
+io.on("connection", socket => {
+  socket.on("hello",({name})=>{
+  console.log(name)
+  socket.emit("helloThere",{msg:`hello ${name}`})
+
+  }
+  )
+  socket.on("loadMessages", async ({ userId, messagesWith }) => {
+    const { chat, error ,name,profilePicUrl} = await loadMessages(userId, messagesWith);
+    !error ? socket.emit("messagesLoaded", { chat }) : socket.emit("noChatFound",{name,profilePicUrl});
+  });
+  // socket.on("join", async ({ userId }) => {
+  //   const users = await addUser(userId, socket.id);
+  //   console.log(users);
+
+  //   setInterval(() => {
+  //     socket.emit("connectedUsers", {
+  //       users: users.filter(user => user.userId !== userId)
+  //     });
+  //   }, 10000);
+  // });
+
+  // socket.on("disconnect", () => removeUser(socket.id));
+});
 
 // if (process.env.NODE_ENV === "production") {
 //     app.use(express.static(path.join(__dirname, "/frontend/build")));
@@ -31,4 +67,4 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`server on ${process.env.NODE_ENV} on ${PORT}`));
+server.listen(PORT, console.log(`server on ${process.env.NODE_ENV} on ${PORT}`));
