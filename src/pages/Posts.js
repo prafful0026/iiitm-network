@@ -24,7 +24,7 @@ const Posts = () => {
   const { error, posts, loading } = postState;
 
   return (
-    <>
+    <React.Fragment>
       {error && <h1>{error}</h1>}
       <div className={classes.root}>
         <CreatePost location={location.pathname.split("/")[2]} />
@@ -48,7 +48,7 @@ const Posts = () => {
           ))
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

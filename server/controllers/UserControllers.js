@@ -1,11 +1,10 @@
 import User from "../models/UserModel.js";
-import Student from "../models/StudentModel.js"
+import Student from "../models/StudentModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import pkg from 'validator';
-import Chat from "../models/ChatModel.js"
+import pkg from "validator";
+import Chat from "../models/ChatModel.js";
 const { isEmail } = pkg;
-
 
 //USER LOGIN ROUTE
 
@@ -15,15 +14,15 @@ const userLogin = async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase() }).select(
       "+password"
     );
-    if (!user) return res.status(401).json({message:"invalid credentials"});
+    if (!user) return res.status(401).json({ message: "invalid credentials" });
 
     const isPasssword = await bcrypt.compare(password, user.password);
 
-    if (!isPasssword) return res.status(401).json({message:"invalid credentials"});
-   
-    const chat=await Chat.findOne({user:user._id})
-    if(!chat)
-    await new Chat({ user: user._id, chats: [] }).save();
+    if (!isPasssword)
+      return res.status(401).json({ message: "invalid credentials" });
+
+    const chat = await Chat.findOne({ user: user._id });
+    if (!chat) await new Chat({ user: user._id, chats: [] }).save();
 
     const payload = { userId: user._id };
 
@@ -33,42 +32,48 @@ const userLogin = async (req, res) => {
       { expiresIn: "24h" },
       (err, token) => {
         if (err) throw err;
-        res.status(200).json({token:token,userId:user._id,userRole:user.role});
+        res
+          .status(200)
+          .json({
+            token: token,
+            userId: user._id,
+            userRole: user.role,
+            userProfilePic: user.profilePicUrl,
+          });
       }
     );
   } catch (error) {
     console.log(error);
-    return res.status(500).json({message:"server error"});
+    return res.status(500).json({ message: "server error" });
   }
 };
-
 
 //USER SIGNUP ROUTE
 
 const userSignup = async (req, res) => {
   try {
-    const { email, name, password, role ,rollNumber} = req.body;
+    const { email, name, password, role, rollNumber } = req.body;
 
     if (!isEmail(email)) return res.status(401).send("Invalid email.");
 
-    let user =await User.findOne({ email: email });
+    let user = await User.findOne({ email: email });
 
     if (user) return res.status(400).send("Email id already registered.");
 
-    user=new User({
-        email: email.toLowerCase(),
-        password,
-        name,
-        role
-    })
+    user = new User({
+      email: email.toLowerCase(),
+      password,
+      name,
+      role,
+    });
     user.password = await bcrypt.hash(password, 10);
     await user.save();
     if (role === "student") {
-        const student=new Student({
-            user:user._id,
-            rollNumber:rollNumber.toLowerCase()
-        })
-        await student.save()
+      const student = new Student({
+        user: user._id,
+        rollNumber: rollNumber.toLowerCase(),
+      });
+      await student.save();
     }
     await new Chat({ user: user._id, chats: [] }).save();
     const payload = { userId: user._id };
@@ -78,7 +83,9 @@ const userSignup = async (req, res) => {
       { expiresIn: "24h" },
       (err, token) => {
         if (err) throw err;
-        res.status(200).json({token:token,userId:user._id,userRole:user.role});
+        res
+          .status(200)
+          .json({ token: token, userId: user._id, userRole: user.role });
       }
     );
   } catch (error) {
@@ -86,4 +93,4 @@ const userSignup = async (req, res) => {
     return res.status(500).send("Server Error.");
   }
 };
-export { userLogin,userSignup };
+export { userLogin, userSignup };

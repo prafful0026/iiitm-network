@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { makeStyles, Button, TextField, Icon } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from "@material-ui/icons/Send";
@@ -13,22 +13,29 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
 }));
-const MessageInput = () => {
+const MessageInput = ({sendMsg}) => {
+  const [message,setMessage]=useState("")
+
+
   const messageSendHandler = (e) => {
     e.preventDefault();
-    console.log("pressed");
+   sendMsg(message)
+   setMessage("")
   };
   const classes = useStyles();
   return (
-    <>
+    <React.Fragment>
       <div style={{ backgroundColor:"white"}}>
-        <form onSubmit={messageSendHandler} className={classes.form}>
+        <form onSubmit={messageSendHandler} className={classes.form} autoComplete="off">
           <TextField
             id='outlined-basic'
             label='Write Message'
             variant='outlined'
             className={classes.input}
+            value={message}
+            onChange={(e)=>setMessage(e.target.value)}
             required
+            autoComplete={false}
           />
           <IconButton
             color='primary'
@@ -39,7 +46,7 @@ const MessageInput = () => {
           </IconButton>
         </form>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

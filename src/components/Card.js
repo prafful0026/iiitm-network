@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import PersonIcon from '@material-ui/icons/Person';
 import ChatIcon from '@material-ui/icons/Chat';
+import image from "./image-1619519466677.png"
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,7 @@ export default function ProfileCard({ name, subHeading }) {
       <CardHeader title={name.toUpperCase()} subheader={subHeading} />
       <CardMedia
         className={classes.media}
-        image={require("./image-1619519466677.png").default}
+        image={image}
       />
       <CardActions>
         <IconButton aria-label='chat'>

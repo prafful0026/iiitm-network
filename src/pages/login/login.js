@@ -1,8 +1,9 @@
 import {useEffect,useState} from "react"
 import {useSelector,useDispatch} from "react-redux"
 import {userLogin} from "../../redux/actions/UserActions"
-import classes from "./login.module.css";
+import "./login.css";
 import { useHistory } from "react-router-dom";
+import React from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -23,12 +24,12 @@ const Login = () => {
     dispatch(userLogin(email, password));
   };
   return (
-    <div className={classes.loginPage}>
+    <div className="loginPage">
         
-      <div className={classes.formContainer}>
+      <div className="formContainer">
       <h2 >Login to IIITM Network</h2>
         <form onSubmit={submitHandler}>
-            <div className={classes.inputContainer}>
+            <div className="inputContainer">
           <input
             type='email'
             value={email}

@@ -7,7 +7,8 @@ import studentRoutes from "./routes/StudentRoutes.js"
 import postRoutes from "./routes/PostRoutes.js"
 import chatRoutes from "./routes/ChatRoutes.js"
 import http from 'http'
-import { loadMessages } from "./utils/MessagesUtils.js";
+import { loadMessages,sendMsg,setMsgToUnread } from "./utils/MessagesUtils.js";
+import {addUser,removeUser,findConnectedUser} from "./utils/RoomUtils.js"
 import { Server } from 'socket.io';
 
 dotenv.config();
@@ -25,15 +26,34 @@ const io = new Server(server,{
 });
 
 io.on("connection", socket => {
-  socket.on("hello",({name})=>{
-  console.log(name)
-  socket.emit("helloThere",{msg:`hello ${name}`})
+  socket.on("join", async ({ userId }) => {
+    const users = await addUser(userId, socket.id);
+    console.log(users);
 
-  }
-  )
+    setInterval(() => {
+      socket.emit("connectedUsers", {
+        users: users.filter(user => user.userId !== userId)
+      });
+    }, 10000);
+  });
   socket.on("loadMessages", async ({ userId, messagesWith }) => {
     const { chat, error ,name,profilePicUrl} = await loadMessages(userId, messagesWith);
     !error ? socket.emit("messagesLoaded", { chat }) : socket.emit("noChatFound",{name,profilePicUrl});
+  });
+  socket.on("sendNewMsg", async ({ userId, msgSendToUserId, msg }) => {
+    const { newMsg, error } = await sendMsg(userId, msgSendToUserId, msg);
+    const receiverSocket = findConnectedUser(msgSendToUserId);
+
+    if (receiverSocket) {
+      // WHEN YOU WANT TO SEND MESSAGE TO A PARTICULAR SOCKET
+      io.to(receiverSocket.socketId).emit("newMsgReceived", { newMsg });
+    }
+    //
+    else {
+      await setMsgToUnread(msgSendToUserId);
+    }
+
+    !error && socket.emit("msgSent", { newMsg });
   });
   // socket.on("join", async ({ userId }) => {
   //   const users = await addUser(userId, socket.id);

@@ -11,6 +11,7 @@ import Posts from "./pages/Posts";
 import Chat from "./pages/Chat"
 import ChatRoom from "./pages/ChatRoom";
 import { useSelector } from "react-redux";
+import React from "react";
 const App = () => {
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;

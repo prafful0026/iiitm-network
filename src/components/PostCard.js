@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -13,17 +13,17 @@ import ShareIcon from "@material-ui/icons/Share";
 import { CardMedia } from "@material-ui/core";
 import CalculateTime from "../utils/calculateTime";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { deletePost } from "../redux/actions/PostActions";
 import { Badge } from "@material-ui/core";
-import {likePost} from "../redux/actions/PostActions"
+import { likePost } from "../redux/actions/PostActions";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 30,
   },
-  deleteIcon:{
-    color:"red",
-    width:"10%"
+  deleteIcon: {
+    color: "red",
+    width: "10%",
   },
   header: {
     display: "flex",
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
-  }
+  },
 }));
 
 export default function PostCard({
@@ -44,9 +44,9 @@ export default function PostCard({
   picUrl,
   userId,
   postId,
-  likes
+  likes,
 }) {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;
 
@@ -55,12 +55,12 @@ export default function PostCard({
 
   const classes = useStyles();
 
-  const handleDelete=()=>{
-   dispatch(deletePost(postId))
-  } 
-  const likePostHandler=()=>{
-    dispatch(likePost(postId))
-  }
+  const handleDelete = () => {
+    dispatch(deletePost(postId));
+  };
+  const likePostHandler = () => {
+    dispatch(likePost(postId));
+  };
 
   return (
     <Card className={classes.root}>
@@ -76,11 +76,11 @@ export default function PostCard({
           title={userName.toUpperCase()}
           subheader={<CalculateTime createdAt={createdAt} />}
         />
-        { (userInfo.userId===userId||userInfo.userRole==="root")&&
-          <IconButton className={classes.deleteIcon} onClick={handleDelete}> 
+        {(userInfo.userId === userId || userInfo.userRole === "root") && (
+          <IconButton className={classes.deleteIcon} onClick={handleDelete}>
             <DeleteForeverIcon color='red' />
           </IconButton>
-        }
+        )}
       </div>
       <CardMedia
         // className={classes.media}
@@ -97,12 +97,15 @@ export default function PostCard({
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='add to favorites' onClick={likePostHandler}>
-         < Badge badgeContent={likes.length} color='secondary'>
-        {
-          likes.find(like=>like.user===userInfo.userId) ?(<><FavoriteIcon color="primary"  /></>):(<FavoriteIcon />)
-        }
-         
-            </Badge>
+          <Badge badgeContent={likes.length} color='secondary'>
+            {likes.find((like) => like.user === userInfo.userId) ? (
+              <React.Fragment>
+                <FavoriteIcon color='primary' />
+              </React.Fragment>
+            ) : (
+              <FavoriteIcon />
+            )}
+          </Badge>
         </IconButton>
         <IconButton aria-label='share'>
           <ShareIcon />
