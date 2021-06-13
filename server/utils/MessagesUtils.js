@@ -1,17 +1,23 @@
-import ChatModel from "../models/ChatModel.js"
-import UserModel from "../models/UserModel.js"
+import ChatModel from "../models/ChatModel.js";
+import UserModel from "../models/UserModel.js";
 
 export const loadMessages = async (userId, messagesWith) => {
   try {
-    const user = await ChatModel.findOne({ user: userId }).populate("chats.messagesWith");
-
-    const chat = user.chats.find(
-      chat => chat.messagesWith._id.toString() === messagesWith
+    const user = await ChatModel.findOne({ user: userId }).populate(
+      "chats.messagesWith"
     );
+    const chat = user.chats.find(
+      (chat) => chat.messagesWith._id.toString() === messagesWith
+    );
+
     if (!chat) {
-      const messagesWithUser=await UserModel.findOne({_id:messagesWith})
-      if(messagesWithUser) 
-      return { error: "No chat found",name:messagesWithUser.name,profilePicUrl:messagesWithUser.profilePicUrl };
+      const messagesWithUser = await UserModel.findOne({ _id: messagesWith });
+
+      return {
+        error: "No chat found",
+        name: messagesWithUser.name,
+        profilePicUrl: messagesWithUser.profilePicUrl,
+      };
     }
 
     return { chat };
@@ -33,11 +39,11 @@ export const sendMsg = async (userId, msgSendToUserId, msg) => {
       sender: userId,
       receiver: msgSendToUserId,
       msg,
-      date: Date.now()
+      date: Date.now(),
     };
 
     const previousChat = user.chats.find(
-      chat => chat.messagesWith.toString() === msgSendToUserId
+      (chat) => chat.messagesWith.toString() === msgSendToUserId
     );
 
     if (previousChat) {
@@ -52,7 +58,7 @@ export const sendMsg = async (userId, msgSendToUserId, msg) => {
     }
 
     const previousChatForReceiver = msgSendToUser.chats.find(
-      chat => chat.messagesWith.toString() === userId
+      (chat) => chat.messagesWith.toString() === userId
     );
 
     if (previousChatForReceiver) {
@@ -73,7 +79,7 @@ export const sendMsg = async (userId, msgSendToUserId, msg) => {
   }
 };
 
-export const setMsgToUnread = async userId => {
+export const setMsgToUnread = async (userId) => {
   try {
     const user = await UserModel.findById(userId);
 
@@ -87,4 +93,3 @@ export const setMsgToUnread = async userId => {
     console.error(error);
   }
 };
-

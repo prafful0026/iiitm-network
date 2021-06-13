@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import calculateTime from "../utils/calculateTime";
+import CalculateTime from "../utils/calculateTime";
 import "./messageStyles.css"
 
 function Message({ message, user,profilePicUrl, bannerProfilePic,divRef}) {
@@ -22,7 +22,7 @@ function Message({ message, user,profilePicUrl, bannerProfilePic,divRef}) {
 
       </div>
 
-      <span className={ifYouSender ? "own" : "other"}>{calculateTime(message.date)}</span>
+      <span className={ifYouSender ? "own" : "other"}>{<CalculateTime createdAt={message.date} />}</span>
     </div>
   );
 }

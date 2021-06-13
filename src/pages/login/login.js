@@ -1,10 +1,10 @@
-import {useEffect,useState} from "react"
+import {useEffect,useState,Fragment} from "react"
 import {useSelector,useDispatch} from "react-redux"
 import {userLogin} from "../../redux/actions/UserActions"
 import "./login.css";
 import { useHistory } from "react-router-dom";
 import React from "react";
-
+import Error from "../../components/Error";
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -24,6 +24,8 @@ const Login = () => {
     dispatch(userLogin(email, password));
   };
   return (
+    <Fragment>
+    {error&&(<Error error={error}/>)}
     <div className="loginPage">
         
       <div className="formContainer">
@@ -51,6 +53,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+   </Fragment>
   );
 };
 

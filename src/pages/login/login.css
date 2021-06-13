@@ -49,4 +49,5 @@
     cursor: pointer;
     transition: background-color 0.2s;
     margin-top: 0.5em;
+    width: 100%;
 }

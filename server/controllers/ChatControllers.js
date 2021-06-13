@@ -18,6 +18,7 @@ export const recentChats= async (req, res) => {
         name: chat.messagesWith.name,
         profilePicUrl: chat.messagesWith.profilePicUrl,
         lastMessage: chat.messages[chat.messages.length - 1].msg,
+        lastMessageSender:chat.messages[chat.messages.length - 1].sender,
         date: chat.messages[chat.messages.length - 1].date
       }));
     }

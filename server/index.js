@@ -8,7 +8,7 @@ import postRoutes from "./routes/PostRoutes.js"
 import chatRoutes from "./routes/ChatRoutes.js"
 import http from 'http'
 import { loadMessages,sendMsg,setMsgToUnread } from "./utils/MessagesUtils.js";
-import {addUser,removeUser,findConnectedUser} from "./utils/RoomUtils.js"
+import {addUser,findConnectedUser} from "./utils/RoomUtils.js"
 import { Server } from 'socket.io';
 
 dotenv.config();
@@ -28,8 +28,6 @@ const io = new Server(server,{
 io.on("connection", socket => {
   socket.on("join", async ({ userId }) => {
     const users = await addUser(userId, socket.id);
-    console.log(users);
-
     setInterval(() => {
       socket.emit("connectedUsers", {
         users: users.filter(user => user.userId !== userId)
