@@ -5,6 +5,7 @@ import PostCard from "../components/PostCard";
 import { getPosts } from "../redux/actions/PostActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import BackButton from "../components/BackButton"
 const createStyles = makeStyles({
   root: {
     display: "flex",
@@ -25,6 +26,7 @@ const Posts = () => {
 
   return (
     <React.Fragment>
+      <BackButton/>
       {error && <h1>{error}</h1>}
       <div className={classes.root}>
         <CreatePost location={location.pathname.split("/")[2]} />
