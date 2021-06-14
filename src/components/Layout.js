@@ -61,10 +61,10 @@ function ResponsiveDrawer(props) {
   };
   const menuItems = [
     { text: "Discussion Forums", path: "/discuss" },
-    { text: "Students", path: "/student" },
-    { text: "Faculties", path: "/faculty" },
-    { text: "Admins", path: "/admin" },
-    { text: "Alumni", path: "/alumni" },
+    { text: "Students", path: "/user/student" },
+    { text: "Faculties", path: "/user/faculty" },
+    { text: "Admins", path: "/user/admin" },
+    { text: "Alumni", path: "/user/alumni" },
   ];
 
   const drawer = (
