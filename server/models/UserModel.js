@@ -24,11 +24,17 @@ const UserSchema = new Schema(
     },
     mobileNum:{
      type:String,
+     default:"0123456789"
     },
-    about:{
-    type:String
+    social: {
+      linkedin: { type: String },
+      github: { type: String },
+      personalSite: { type: String },
     },
-    
+    contactInfo:{
+      type:String,
+      
+    },
     newMessagePopup: {
       type: Boolean,
       default: true,
@@ -45,12 +51,6 @@ const UserSchema = new Schema(
       type: String,
       required:true,
       enum: ["student","admin", "faculty", "alumni", "root"],
-    },
-    resetToken: {
-      type: String,
-    },
-    expireToken: {
-      type: Date,
     },
   },
   {

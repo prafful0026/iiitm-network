@@ -7,7 +7,6 @@ import Chat from "../models/ChatModel.js";
 import Faculty from "../models/FacultyModel.js";
 import Admin from "../models/AdminModel.js";
 import Alumni from "../models/AlumniModel.js";
-import Profile from "../models/ProfileModel.js";
 const { isEmail } = pkg;
 
 //USER LOGIN ROUTE
@@ -29,7 +28,6 @@ const userLogin = async (req, res) => {
     if (!chat) await new Chat({ user: user._id, chats: [] }).save();
 
     const profile = await Profile.findOne({ user: user._id });
-    if (!profile) await new Profile({ user: user._id }).save();
 
     const payload = { userId: user._id };
 
@@ -120,7 +118,6 @@ const userSignup = async (req, res) => {
       await alumni.save();
     }
     await new Chat({ user: user._id, chats: [] }).save();
-    await new Profile({ user: user._id }).save();
     const payload = { userId: user._id };
     jwt.sign(
       payload,

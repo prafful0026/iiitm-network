@@ -14,20 +14,22 @@ const Student = () => {
     headers: { Authorization: userInfo.token },
   });
   useEffect(async () => {
-      const { data } = await Axios.get("/");
-      setUsers(data);
-      console.log(data)
+    const { data } = await Axios.get("/");
+    setUsers(data);
+    console.log(data);
   }, [params]);
   return (
     <div>
-      <Grid container spacing={3} direction='row'>
-        {users &&
-          users.map((user) => (
-            <Grid key={user._id} item lg={3} md={4} xs={12}>
-              <Card user={user} />
-            </Grid>
-          ))}
-      </Grid>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "",
+        }}
+      >
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+      </div>
     </div>
   );
 };

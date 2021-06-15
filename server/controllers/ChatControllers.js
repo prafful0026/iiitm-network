@@ -1,6 +1,5 @@
 
 import Chat from "../models/ChatModel.js";
-import User from "../models/UserModel.js";
 
 // GET ALL RECENT CHATS
 
@@ -9,7 +8,7 @@ export const recentChats= async (req, res) => {
     const { userId } = req;
 
     const user = await Chat.findOne({ user: userId }).populate("chats.messagesWith");
-
+    // console.log(user)
     let chatsToBeSent = [];
 
     if (user.chats.length > 0) {
