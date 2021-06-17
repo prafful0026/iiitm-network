@@ -30,7 +30,7 @@ import {
         baseURL: `${BASE_URL}/api/post`,
         headers: { Authorization: token }
       });
-     const {data}=await Axios.get(`/${postCategory}`)
+     const {data}=await Axios.get(`/category/${postCategory}`)
 
       dispatch({
         type: POST_GET_SUCCESS,

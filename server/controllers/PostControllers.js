@@ -1,3 +1,4 @@
+
 import Post from "../models/PostModel.js";
 import User from "../models/UserModel.js";
 //CREATE POST
@@ -115,4 +116,19 @@ const likePost= async (req, res) => {
   }
 };
 
-export { deletePost, createPost, getPostByCategory,likePost };
+
+const getFavouritePosts= async (req, res) => {
+  try {
+    const { userId } = req;
+    console.log("hi")
+    const user=await User.findOne({_id:userId}).populate("favouritePosts.post")
+    return res.status(200).json(user.favouritePosts);
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({message:`Server error`});
+  }
+};
+
+
+export { deletePost, createPost, getPostByCategory,likePost ,getFavouritePosts};
