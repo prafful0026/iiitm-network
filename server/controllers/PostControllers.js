@@ -1,4 +1,3 @@
-
 import Post from "../models/PostModel.js";
 import User from "../models/UserModel.js";
 //CREATE POST
@@ -73,63 +72,86 @@ const deletePost = async (req, res) => {
   }
 };
 
-
 //LIKE A POST
 
-const likePost= async (req, res) => {
+const likePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const { userId } = req;
 
     const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json({message:"No Post found"});
+      return res.status(404).json({ message: "No Post found" });
     }
 
-    const user=await User.findOne({_id:userId})
+    const user = await User.findOne({ _id: userId });
 
-    const isLiked = 
-      post.likes.filter(like => like.user.toString() === userId).length > 0;
+    const isLiked =
+      post.likes.filter((like) => like.user.toString() === userId).length > 0;
 
     if (isLiked) {
-      const index = post.likes.map(like => like.user.toString()).indexOf(userId);
-      const postIndex =user.favouritePosts.map(post=>post.post.toString()).indexOf(postId)
-      if(postIndex>=0)
-      await user.favouritePosts.splice(postIndex,1)
+      const index = post.likes
+        .map((like) => like.user.toString())
+        .indexOf(userId);
+      const postIndex = user.favouritePosts
+        .map((post) => post.post.toString())
+        .indexOf(postId);
+      if (postIndex >= 0) await user.favouritePosts.splice(postIndex, 1);
       await user.save();
-      await post.likes.splice(index, 1);  
-      
-      await post.save()
+      await post.likes.splice(index, 1);
 
-      return res.status(200).json({message:"Post disliked",isLiked});
+      await post.save();
+
+      return res.status(200).json({ message: "Post disliked", isLiked });
     }
 
     await post.likes.unshift({ user: userId });
-    await user.favouritePosts.unshift({post:postId});
-    await user.save()
+    await user.favouritePosts.unshift({ post: postId });
+    await user.save();
     await post.save();
 
-    return res.status(200).json({message:"Post liked",isLiked});
+    return res.status(200).json({ message: "Post liked", isLiked });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({message:`Server error`});
+    return res.status(500).json({ message: `Server error` });
   }
 };
 
-
-const getFavouritePosts= async (req, res) => {
+const getFavouritePosts = async (req, res) => {
   try {
     const { userId } = req;
-    const user=await User.findOne({_id:userId}).populate("favouritePosts.post")
-    await user.populate("favouritePosts.post.user").execPopulate()
-    
-    return res.status(200).json(user.favouritePosts);
-
+    const user = await User.findOne({ _id: userId }).populate(
+      "favouritePosts.post"
+    );
+    await user.populate("favouritePosts.post.user").execPopulate();
+    let postToBeSent = [];
+    user.favouritePosts.map((postD) =>{
+      postD.post&&
+      postToBeSent.push({
+        _id: postD.post._id,
+        postTitle: postD.post.postTitle,
+        postDesc: postD.post.postDesc,
+        picUrl: postD.post.picUrl,
+        likes: postD.post.likes,
+        createdAt: postD.post.createdAt,
+        user:{
+          _id:postD.post.user._id,
+          name:postD.post.user.name,
+          profilePicUrl:postD.post.user.profilePicUrl,
+        }
+      })}
+    ); 
+    return res.status(200).json(postToBeSent);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({message:`Server error`});
+    return res.status(500).json({ message: `Server error` });
   }
 };
 
-
-export { deletePost, createPost, getPostByCategory,likePost ,getFavouritePosts};
+export {
+  deletePost,
+  createPost,
+  getPostByCategory,
+  likePost,
+  getFavouritePosts,
+};

@@ -38,9 +38,10 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
       }
     }
     case POST_DELETE_UPDATE: {
+      if(action)
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== action.payload),
+        posts: state.posts.filter((post) => post._id !== action.payload.postId),
       };
     }
     case POST_LIKE_UPDATE: {
@@ -61,7 +62,7 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
       {
          return {
            ...state,
-           posts:state.posts.filter((post) => post.post._id !== action.payload.postId)
+           posts:state.posts.filter((post) => post._id !== action.payload.postId)
          }
       }
       else

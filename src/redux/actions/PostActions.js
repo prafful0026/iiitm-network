@@ -100,7 +100,7 @@ export const createPost =
     }
   };
 
-export const deletePost = (postId) => async (dispatch) => {
+export const deletePost = (postId,isFavourite=false) => async (dispatch) => {
   try {
     dispatch({
       type: POST_DELETE_REQUEST,
@@ -115,7 +115,7 @@ export const deletePost = (postId) => async (dispatch) => {
     dispatch({
       type: POST_DELETE_SUCCESS,
     });
-    dispatch({ type: POST_DELETE_UPDATE, payload: postId });
+    dispatch({ type: POST_DELETE_UPDATE, payload:{ postId ,isFavourite}});
   } catch (error) {
     dispatch({
       type: POST_DELETE_FAIL,

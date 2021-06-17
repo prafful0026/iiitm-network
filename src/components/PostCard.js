@@ -49,7 +49,8 @@ export default function PostCard({ post,keyword }) {
   const classes = useStyles();
 
   const handleDelete = () => {
-    dispatch(deletePost(postId));
+    const isFavourite=keyword==="favourite"
+    dispatch(deletePost(postId,isFavourite));
   };
   const likePostHandler = () => {
     const isFavourite=keyword==="favourite"

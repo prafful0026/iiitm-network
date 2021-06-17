@@ -7,7 +7,6 @@ const PostDisplay = ({ keyword }) => {
   const dispatch = useDispatch();
   const postState = useSelector((state) => state.postsByCategory);
   const { error, posts, loading } = postState;
-  console.log(posts)
   useEffect(() => {
     const isFavourite = keyword === "favourite";
     dispatch(getPosts(keyword, isFavourite));
@@ -23,17 +22,9 @@ const PostDisplay = ({ keyword }) => {
         <h1>loading.....</h1>
       ) : (
         <Fragment>
-          {keyword === "favourite"
-            ? posts.length > 0 &&
-              posts.map((post) => (
-                <Fragment>
-                  {post.post&&(
-                    <PostCard key={post.post._id} post={post.post} keyword={keyword} />
-                  )}
-                </Fragment>
-              ))
-            : posts.length > 0 &&
-              posts.map((post) => <PostCard key={post._id} post={post} />)}
+          { posts &&
+              posts.map((post) => <PostCard keyword={keyword} key={post._id} post={post} />)
+              }
         </Fragment>
       )}
     </Fragment>
