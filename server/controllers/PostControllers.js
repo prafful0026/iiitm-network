@@ -85,25 +85,28 @@ const likePost= async (req, res) => {
       return res.status(404).json({message:"No Post found"});
     }
 
-  
-    const isLiked =
+    const user=await User.findOne({_id:userId})
+
+    const isLiked = 
       post.likes.filter(like => like.user.toString() === userId).length > 0;
 
     if (isLiked) {
       const index = post.likes.map(like => like.user.toString()).indexOf(userId);
+      const postIndex =user.favouritePosts.map(post=>post.post.toString()).indexOf(postId)
+      if(postIndex>=0)
+      await user.favouritePosts.splice(postIndex,1)
+      await user.save();
       await post.likes.splice(index, 1);  
-
+      
       await post.save()
 
       return res.status(200).json({message:"Post disliked",isLiked});
     }
 
     await post.likes.unshift({ user: userId });
+    await user.favouritePosts.unshift({post:postId});
+    await user.save()
     await post.save();
-
-    // if (post.user.toString() !== userId) {
-    //   await newLikeNotification(userId, postId, post.user.toString());
-    // }
 
     return res.status(200).json({message:"Post liked",isLiked});
   } catch (error) {

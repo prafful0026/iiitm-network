@@ -20,20 +20,20 @@ const UserSchema = new Schema(
     },
     profilePicUrl: {
       type: String,
-      default:"https://res.cloudinary.com/indersingh/image/upload/v1593464618/App/user_mklcpl.png"
+      default:
+        "https://res.cloudinary.com/indersingh/image/upload/v1593464618/App/user_mklcpl.png",
     },
-    mobileNum:{
-     type:String,
-     default:"0123456789"
+    mobileNum: {
+      type: String,
+      default: "0123456789",
     },
     social: {
       linkedin: { type: String },
       github: { type: String },
       personalSite: { type: String },
     },
-    contactInfo:{
-      type:String,
-      
+    contactInfo: {
+      type: String,
     },
     newMessagePopup: {
       type: Boolean,
@@ -49,9 +49,17 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      required:true,
-      enum: ["student","admin", "faculty", "alumni", "root"],
+      required: true,
+      enum: ["student", "admin", "faculty", "alumni", "root"],
     },
+    favouritePosts: [
+      {
+        post: {
+          type: Schema.Types.ObjectId,
+          ref: "Post",
+        },
+      },
+    ],
   },
   {
     timestamps: true,
