@@ -17,3 +17,6 @@ export const POST_DELETE_FAIL = "POST_DELETE_FAIL";
 export const POST_LIKE_REQUEST = "POST_LIKE_REQUEST";
 export const POST_LIKE_SUCCESS = "POST_LIKE_SUCCESS";
 export const POST_LIKE_FAIL = "POST_LIKE_FAIL";
+
+
+export const POST_RESET= "POST_RESET";

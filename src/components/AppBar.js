@@ -11,6 +11,7 @@ import { Badge } from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { USER_LOGOUT } from "../redux/constants/UserConstants";
 import { useDispatch,useSelector } from "react-redux";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
@@ -47,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
   chat: {
     color: "white",
-    marginRight:20
   },
   logout:{
-    color:"white"
+    color:"white",
+
   }
 }));
 
@@ -78,10 +79,6 @@ function NavBar({ handleDrawerToggle }) {
           <Typography variant='h5' noWrap className={classes.appTitle}>
             IIITM NETWORK
           </Typography>
-          <IconButton onClick={logoutHandler}>
-            <ExitToAppIcon className={classes.logout} />
-          </IconButton>
-  
           <Link to="/chat">
           <IconButton  className={classes.chat}>
             <Badge badgeContent={4} color='secondary'>
@@ -89,6 +86,16 @@ function NavBar({ handleDrawerToggle }) {
             </Badge>
           </IconButton>
           </Link>
+          <Link to="/post/favourite">
+          <IconButton  className={classes.chat}>
+              <FavoriteIcon />
+          </IconButton>
+          </Link>
+          <IconButton onClick={logoutHandler}>
+            <ExitToAppIcon className={classes.logout} />
+          </IconButton>
+  
+        
   
           <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
         </Toolbar>

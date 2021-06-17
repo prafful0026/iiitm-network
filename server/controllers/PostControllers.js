@@ -120,8 +120,9 @@ const likePost= async (req, res) => {
 const getFavouritePosts= async (req, res) => {
   try {
     const { userId } = req;
-    console.log("hi")
     const user=await User.findOne({_id:userId}).populate("favouritePosts.post")
+    await user.populate("favouritePosts.post.user").execPopulate()
+    
     return res.status(200).json(user.favouritePosts);
 
   } catch (error) {

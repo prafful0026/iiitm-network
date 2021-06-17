@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -7,7 +7,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import { CardMedia } from "@material-ui/core";
@@ -35,23 +34,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostCard({
-  postTitle,
-  postDesc,
-  userName,
-  userProfilePic,
-  createdAt,
-  picUrl,
-  userId,
-  postId,
-  likes,
-}) {
+export default function PostCard({ post,keyword }) {
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;
 
-  // const deleteState = useSelector((state) => state.postDelete);
-  // const { success:deleteSuccess,loading:deleteLoading,error:deleteError } = deleteState;
+  const { postTitle, postDesc, createdAt, picUrl, _id: postId, likes } = post;
+  const {
+    name: userName,
+    profilePicUrl: userProfilePic,
+    _id: userId,
+  } = post.user;
 
   const classes = useStyles();
 
@@ -59,7 +52,8 @@ export default function PostCard({
     dispatch(deletePost(postId));
   };
   const likePostHandler = () => {
-    dispatch(likePost(postId));
+    const isFavourite=keyword==="favourite"
+    dispatch(likePost(postId,isFavourite));
   };
 
   return (

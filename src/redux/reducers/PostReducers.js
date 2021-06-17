@@ -14,7 +14,8 @@ import {
   POST_LIKE_REQUEST,
   POST_LIKE_SUCCESS,
   POST_LIKE_FAIL,
-  POST_DISLIKE_UPDATE
+  POST_DISLIKE_UPDATE,
+  POST_RESET
 } from "../constants/PostConstants";
 
 export const getPostsReduer = (state = { posts: [] }, action) => {
@@ -30,6 +31,11 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
         ...state,
         posts: [action.payload, ...state.posts],
       };
+    }
+    case POST_RESET:{
+      return{
+        posts:[]
+      }
     }
     case POST_DELETE_UPDATE: {
       return {
@@ -51,17 +57,28 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
       };
     }
     case POST_DISLIKE_UPDATE:{
-      let index=state.posts.findIndex(post=>post._id===action.payload.postId)
-      let post=state.posts.find((post) => post._id === action.payload.postId)
-      let likes=post.likes
-      return {
-        ...state,
-        posts: [
-          ...state.posts.slice(0,index),
-          post={...post,likes:likes.filter(like=>like.user!==action.payload.userId)},
-          ...state.posts.slice(index+1,),
-        ],
-      };
+      if(action.payload.isFavourite)
+      {
+         return {
+           ...state,
+           posts:state.posts.filter((post) => post.post._id !== action.payload.postId)
+         }
+      }
+      else
+      {
+        let index=state.posts.findIndex(post=>post._id===action.payload.postId)
+        let post=state.posts.find((post) => post._id === action.payload.postId)
+        let likes=post.likes
+        return {
+          ...state,
+          posts: [
+            ...state.posts.slice(0,index),
+            post={...post,likes:likes.filter(like=>like.user!==action.payload.userId)},
+            ...state.posts.slice(index+1,),
+          ],
+        };
+      }
+   
     }
     default:
       return state;
