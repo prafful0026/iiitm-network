@@ -27,8 +27,6 @@ const userLogin = async (req, res) => {
     const chat = await Chat.findOne({ user: user._id });
     if (!chat) await new Chat({ user: user._id, chats: [] }).save();
 
-    const profile = await Profile.findOne({ user: user._id });
-
     const payload = { userId: user._id };
 
     jwt.sign(

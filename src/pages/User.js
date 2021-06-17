@@ -25,9 +25,25 @@ const Student = () => {
           width: "100%",
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "",
+          alignItems:"center",
+          alignContent:"center",
+          justifyContent:"space-evenly"
         }}
       >
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
+        {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
         {users && users.map((user) => <div style={{margin:"10px"}}><Card user={user} /></div>)}
       </div>
     </div>

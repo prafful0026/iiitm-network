@@ -9,7 +9,6 @@ import Chat from "./pages/Chat"
 import ChatRoom from "./pages/ChatRoom";
 import { useSelector } from "react-redux";
 import React from "react";
-import Profile from "./pages/Profile/Profile";
 const App = () => {
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;
@@ -22,7 +21,6 @@ const App = () => {
           <Layout>
             <Route path='/' component={Home} exact />
             <Route path='/user/:userType' component={User} exact />
-            <Route path='/user/profile/:userId' component={Profile} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/discuss/:id' component={Posts} exact />
             <Route path='/chat' component={Chat} exact />
