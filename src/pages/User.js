@@ -16,7 +16,6 @@ const Student = () => {
   useEffect(async () => {
     const { data } = await Axios.get("/");
     setUsers(data);
-    console.log(data);
   }, [params]);
   return (
     <div>

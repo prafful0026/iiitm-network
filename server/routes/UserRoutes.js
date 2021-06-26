@@ -1,5 +1,5 @@
 import express from "express";
-import {userLogin,userSignup} from "../controllers/UserControllers.js";
+import {userLogin,userSignup,getUserById} from "../controllers/UserControllers.js";
 const router = express.Router();
 import {protect} from "../middlewares/authMiddleware.js";
 import {getAllStudents} from "../controllers/StudentControllers.js";
@@ -14,6 +14,8 @@ router.route("/student").get(protect,getAllStudents)
 router.route("/faculty").get(protect,getAllFacultys)
 router.route("/admin").get(protect,getAllAdmins)
 router.route("/alumni").get(protect,getAllAlumnis)
+router.route("/profile/:userId").get(protect,getUserById)
+
 
 export default router;
         

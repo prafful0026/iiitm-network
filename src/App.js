@@ -1,8 +1,8 @@
 import LoginPage from "./pages/login/login";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
 import User from "./pages/User";
+import ProfilePage from "./pages/Profile/ProfilePage";
 import Forum from "./pages/Forum"
 import Posts from "./pages/Posts";
 import Chat from "./pages/Chat"
@@ -20,13 +20,15 @@ const App = () => {
         <Route path='/login' component={LoginPage} exact />
         {userInfo && (
           <Layout>
-            <Route path='/' component={Home} exact />
+            <Route path='/' component={ProfilePage} exact />
             <Route path='/member/:userType' component={User} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/post/favourite' component={FavouritePosts} exact />
             <Route path='/discuss/:postType' component={Posts} exact />
             <Route path='/chat' component={Chat} exact />
             <Route path='/chat/:userId' component={ChatRoom} exact />
+            <Route path='/user/:userId' component={ProfilePage} exact />
+
             {/* <Route path='*'>
               <Redirect to='/' />
             </Route> */}

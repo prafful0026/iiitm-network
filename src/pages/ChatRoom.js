@@ -4,7 +4,7 @@ import MessageInput from "../components/MessageInput";
 import Message from "../components/Message";
 import io from "socket.io-client";
 import BASE_URL from "../utils/baseUrl";
-import { useParams } from "react-router-dom";
+import { useParams,Redirect,useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButton from "../components/BackButton";
 import Error from "../components/Error";
@@ -15,6 +15,7 @@ const scrollDivToBottom = (divRef) => {
 };
 
 const ChatRoom = () => {
+  const history=useHistory()
   const socket = useRef();
   const params = useParams();
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -23,6 +24,10 @@ const ChatRoom = () => {
   const [bannerData, setBannerData] = useState({ name: "", profilePicUrl: "" });
   const [error, setError] = useState(null);
 
+  useEffect(()=>{
+    if(params.userId===userInfo.userId)
+     history.replace("/")
+  })
   useEffect(() => {
     if (!socket.current) {
       socket.current = io(BASE_URL);

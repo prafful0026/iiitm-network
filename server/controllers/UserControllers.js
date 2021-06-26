@@ -138,4 +138,53 @@ const userSignup = async (req, res) => {
     return res.status(500).send({ message: "Server Error." });
   }
 };
-export { userLogin, userSignup };
+
+const getUserById = async (req,res)=>{
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ _id: userId });
+    if(user)
+    {  
+         if(user.role==="root")
+      {
+
+        return res.json({...user._doc,designation:"Root"})
+        return res.status(401).send({message:"Invalid User Id"})
+      }
+      if(user.role==="student")
+      { 
+        const student=await Student.findOne({user:userId}).populate("user")
+        if(student)
+        return res.json(student)
+        return res.status(401).send({message:"Invalid User Id"})
+      }
+      if(user.role==="faculty")
+      {
+        const faculty=await Faculty.findOne({user:userId}).populate("user")
+        if(faculty)
+        return res.json(faculty)
+        return res.status(401).send({message:"Invalid User Id"})
+      }
+      if(user.role==="admin")
+      {
+        const admin=await Admin.findOne({user:userId}).populate("user")
+        if(admin)
+        return res.json(admin)
+        return res.status(401).send({message:"Invalid User Id"})
+      }
+      if(user.role==="alumni")
+      {
+        const alumni=await Alumni.findOne({user:userId}).populate("user")
+        if(alumni)
+        return res.json(alumni)
+        return res.status(401).send({message:"Invalid User Id"})
+      }
+    }
+
+    return res.status(401).send({message:"Invalid User Id"})
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({message:"Server Error"});
+  }
+}
+export { userLogin, userSignup ,getUserById};

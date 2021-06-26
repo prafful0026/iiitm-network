@@ -72,14 +72,15 @@ export default function ProfileCard({ user }) {
     <Card className={classes.root} elevation={2}>
       <div className={classes.header}>
         <Avatar className={classes.media} src={image} />
+      <Link style={{textDecoration:"none"}} to={`/user/${userId}`}>
         <CardHeader title={name} subheader={subHeading} />
+      </Link>
         <IconButton aria-label='chat'>
           <Link style={{ textDecoration: "none" }} to={`/chat/${userId}`}>
             <ChatIcon />
           </Link>
         </IconButton>
       </div>
-
       <div className={classes.itemContainer}>
         {user.jobRole && (
           <div className={classes.item}>
