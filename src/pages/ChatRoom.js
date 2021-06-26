@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import BackButton from "../components/BackButton";
 import Error from "../components/Error";
 
+
 const scrollDivToBottom = (divRef) => {
   divRef.current && divRef.current.scrollIntoView({ behaviour: "smooth" });
 };

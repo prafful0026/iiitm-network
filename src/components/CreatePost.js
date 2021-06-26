@@ -65,7 +65,6 @@ const CreatePost = ({ location }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography  variant='h4'>{location[0].toUpperCase()+location.substring(1)} Discussion Zone</Typography>
       <form onSubmit={submitHanler} className={classes.formStyles}>
       <input
             ref={inputRef}

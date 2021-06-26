@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRecentChats } from "../redux/actions/ChatActions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
-import BackButton from "../components/BackButton";
-
-
+import PageHeader from "../components/PageHeader"
 const createStyles = makeStyles({
     root: {
       display: "flex",
@@ -22,21 +20,21 @@ const Chat = () => {
     (state) => state.recentChats
   );
   useEffect(() => {
+    if(recentChats.length==0)
     dispatch(getRecentChats());
   }, []);
   return (
     <div>
-      <BackButton/>
+      <PageHeader title="Recent Chats"/>
       {loading ? (
         <h1>Loading....</h1>
       ) : (
         <div className={classes.root}>
-      <h1>Recent chats</h1>
-      <Paper style={{ padding: "40px 20px" }}>
           {recentChats.map((chat) => (
+      <Paper elevation={14} style={{ padding: "20px",marginBottom:"10px" }}>
             <ChatCard chat={chat} />
-          ))}
           </Paper>
+          ))}
         </div>
       )}
     </div>

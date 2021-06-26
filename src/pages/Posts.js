@@ -4,11 +4,12 @@ import CreatePost from "../components/CreatePost";
 import { useLocation } from "react-router-dom";
 import BackButton from "../components/BackButton"
 import PostDisplay from "../components/PostDisplay";
+import PageHeader from "../components/PageHeader";
 const createStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    maxWidth: 800,
+    maxWidth: 1200,
     margin: "auto",
   },
 });
@@ -17,7 +18,9 @@ const Posts = () => {
   const classes = createStyles();
   return (
     <React.Fragment>
-      <BackButton/>
+      <PageHeader title={
+    `${location.pathname.split("/")[2].toUpperCase()} Discussion Zone`
+      }/>
       <div className={classes.root}>
         <CreatePost location={location.pathname.split("/")[2]} />
         <PostDisplay  keyword={location.pathname.split("/")[2]}/>

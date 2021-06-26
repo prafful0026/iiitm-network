@@ -55,6 +55,7 @@ const deletePost = async (req, res) => {
     if (!post) return res.status(404).send("post not found");
 
     const user = await User.findById(userId);
+
     if (post.user.toString() != userId) {
       if (user.role === "root") {
         await post.remove();
@@ -125,19 +126,19 @@ const getFavouritePosts = async (req, res) => {
     );
     await user.populate("favouritePosts.post.user").execPopulate();
     let postToBeSent = [];
-    user.favouritePosts.map((postD) =>{
-      postD.post&&
+    user.favouritePosts.map((post) =>{
+      post.post&&
       postToBeSent.push({
-        _id: postD.post._id,
-        postTitle: postD.post.postTitle,
-        postDesc: postD.post.postDesc,
-        picUrl: postD.post.picUrl,
-        likes: postD.post.likes,
-        createdAt: postD.post.createdAt,
+        _id: post.post._id,
+        postTitle: post.post.postTitle,
+        postDesc: post.post.postDesc,
+        picUrl: post.post.picUrl,
+        likes: post.post.likes,
+        createdAt: post.post.createdAt,
         user:{
-          _id:postD.post.user._id,
-          name:postD.post.user.name,
-          profilePicUrl:postD.post.user.profilePicUrl,
+          _id:post.post.user._id,
+          name:post.post.user.name,
+          profilePicUrl:post.post.user.profilePicUrl,
         }
       })}
     ); 

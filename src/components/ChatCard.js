@@ -15,14 +15,14 @@ const ChatCard = ({ chat }) => {
     lastMessageSender,
   } = chat;
   return (
-    <div style={{ padding: 14 }} className='App'>
+    <div style={{ padding: 14, }} className='App'>
       <Grid container wrap='nowrap' spacing={2}>
         <Grid item>
           <Avatar alt='Remy Sharp' src={profilePicUrl} />
         </Grid>
         <Grid justifyContent='left' item xs zeroMinWidth>
-          <Link to={`/chat/${messagesWith}`}>
-            <h4 style={{ margin: 0, textAlign: "left" }}>
+          <Link style={{textDecoration:"none"}} to={`/chat/${messagesWith}`}>
+            <h4 style={{ margin: 0, textAlign: "left",color:"black" ,textDecoration:"none"}}>
               {name.toUpperCase()}
             </h4>
           </Link>
@@ -40,7 +40,6 @@ const ChatCard = ({ chat }) => {
           </p>
         </Grid>
       </Grid>
-      <Divider variant='fullWidth' style={{ margin: "30px 0" }} />
     </div>
   );
 };
