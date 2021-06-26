@@ -1,8 +1,7 @@
 import { makeStyles } from "@material-ui/core";
-import React from "react";
+import React,{useState} from "react";
 import CreatePost from "../components/CreatePost";
 import { useLocation } from "react-router-dom";
-import BackButton from "../components/BackButton"
 import PostDisplay from "../components/PostDisplay";
 import PageHeader from "../components/PageHeader";
 const createStyles = makeStyles({
@@ -14,6 +13,11 @@ const createStyles = makeStyles({
   },
 });
 const Posts = () => {
+  const [modalIsOpen,setIsOpen]=useState(false)
+
+  function openModal() {
+    setIsOpen(state=>!state);
+  }
   const location = useLocation();
   const classes = createStyles();
   return (
@@ -22,7 +26,8 @@ const Posts = () => {
     `${location.pathname.split("/")[2].toUpperCase()} Discussion Zone`
       }/>
       <div className={classes.root}>
-        <CreatePost location={location.pathname.split("/")[2]} />
+     {<CreatePost location={location.pathname.split("/")[2]} />}
+
         <PostDisplay  keyword={location.pathname.split("/")[2]}/>
       </div>
     </React.Fragment>

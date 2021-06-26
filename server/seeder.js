@@ -10,10 +10,7 @@ connectDB()
 
 const importData= async ()=>{
 try{
-    await User.deleteMany()
-
-    const createdUsers=await User.insertMany(users)
-    const adminUser=createdUsers[0]._id 
+    await User.insertMany(users)
     console.log('data imported')
     process.exit()
      

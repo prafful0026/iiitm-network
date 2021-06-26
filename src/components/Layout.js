@@ -6,18 +6,19 @@ import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { ListItemIcon } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import NavBar from "./AppBar";
-
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
-  appBarRoot:{flexGrow:1},
-  appTitle:{flexGrow:1},
+  appBarRoot: { flexGrow: 1 },
+  appTitle: { flexGrow: 1 },
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
@@ -31,12 +32,14 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: drawerWidth,
     },
   },
+  listItem: {
+    marginTop: "10px",
+  },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
-    
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -45,12 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),   
+    padding: theme.spacing(3),
   },
 }));
 
 function ResponsiveDrawer(props) {
-  const history=useHistory()
+  const history = useHistory();
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -60,24 +63,33 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
   const menuItems = [
-    { text: "Discussion Forums", path: "/discuss" },
-    { text: "Students", path: "/user/student" },
-    { text: "Faculties", path: "/user/faculty" },
-    { text: "Admins", path: "/user/admin" },
-    { text: "Alumni", path: "/user/alumni" },
+    { text: "Profile", path: "/" },
+    { text: "Discuss Zones", path: "/discuss" },
+    { text: "Students", path: "/member/student" },
+    { text: "Faculties", path: "/member/faculty" },
+    { text: "Admins", path: "/member/admin" },
+    { text: "Alumni", path: "/member/alumni" },
   ];
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
+      {/* <Divider /> */}
       <List>
-        {menuItems.map(({text,path}) => (
-          <ListItem button key={text} onClick={()=>history.push(path)}   >
-            {/* <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon> */}
-            <ListItemText  primary={text} />
+        {menuItems.map(({ text, path }) => (
+          <ListItem
+            className={classes.listItem}
+            button
+            key={text}
+            onClick={() => history.push(path)}
+            // selected={true}
+          >
+            <ListItemText primary={text.toUpperCase()} />
+            {
+              <ListItemIcon>
+                <ArrowForwardIosIcon />
+              </ListItemIcon>
+            }
           </ListItem>
         ))}
       </List>
@@ -90,7 +102,7 @@ function ResponsiveDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-  <NavBar handleDrawerToggle={handleDrawerToggle} />
+      <NavBar handleDrawerToggle={handleDrawerToggle} />
 
       <nav className={classes.drawer} aria-label='mailbox folders'>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -131,7 +143,5 @@ function ResponsiveDrawer(props) {
     </div>
   );
 }
-
-
 
 export default ResponsiveDrawer;

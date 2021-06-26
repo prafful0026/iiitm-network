@@ -26,7 +26,6 @@ const CreatePost = ({ location }) => {
   const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
 
-  const [showModal, setShowModal] = useState(false);
   const addStyles = () => ({
     display:"flex",
     flexDirection:"column",

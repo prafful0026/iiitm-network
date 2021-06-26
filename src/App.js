@@ -21,7 +21,7 @@ const App = () => {
         {userInfo && (
           <Layout>
             <Route path='/' component={Home} exact />
-            <Route path='/user/:userType' component={User} exact />
+            <Route path='/member/:userType' component={User} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/post/favourite' component={FavouritePosts} exact />
             <Route path='/discuss/:postType' component={Posts} exact />

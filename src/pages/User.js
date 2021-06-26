@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
-import { Grid } from "@material-ui/core";
 import { useParams } from "react-router";
 import BASE_URL from "../utils/baseUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import PageHeader from "../components/PageHeader";
 const Student = () => {
   const params = useParams();
   const [users, setUsers] = useState([]);
@@ -20,6 +20,7 @@ const Student = () => {
   }, [params]);
   return (
     <div>
+      <PageHeader title={`${params.userType}s`}/>
       <div
         style={{
           width: "100%",

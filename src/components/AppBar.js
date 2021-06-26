@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar({ handleDrawerToggle }) {
+  const { userInfo } = useSelector((state) => state.userLogin);
   const dispatch=useDispatch()
   const classes = useStyles();
   const theme = useTheme();
@@ -94,10 +95,7 @@ function NavBar({ handleDrawerToggle }) {
           <IconButton onClick={logoutHandler}>
             <ExitToAppIcon className={classes.logout} />
           </IconButton>
-  
-        
-  
-          <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+          <Avatar src={userInfo.userProfilePic} />
         </Toolbar>
       </AppBar>
     </div>
