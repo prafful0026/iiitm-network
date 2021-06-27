@@ -11,17 +11,22 @@ import http from 'http'
 import { loadMessages,sendMsg,setMsgToUnread } from "./utils/MessagesUtils.js";
 import {addUser,findConnectedUser} from "./utils/RoomUtils.js"
 import { Server } from 'socket.io';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 connectDB();
 
 const app = express();
+app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "..",'build')));
+  const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
+
 } 
 app.use(cors());
-app.use(express.json());
 
 const server = http.createServer(app); 
 const io = new Server(server,{
