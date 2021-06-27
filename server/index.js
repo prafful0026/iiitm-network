@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path"
 import connectDB from "./config/connectDB.js"
 import userRoutes from "./routes/UserRoutes.js"
 import studentRoutes from "./routes/StudentRoutes.js"
