@@ -2,56 +2,82 @@ import bcrypt from "bcryptjs";
 
 const users = [
   {
-    name: "prafful",
+    name: "Prafful Agrawal",
     email: "prafful026@gmail.com",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "root",
   },
   {
-    name: "prafful agrawal",
+    name: "Prafful Agrawal",
     email: "bcs_2019039@iiitm.ac.in",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "student",
     rollNumber:"2019bcs-039"
   },
   {
-    name: "adarsh tiwari",
+    name: "Adarsh Tiwari",
     email: "imt_2019110@iiitm.ac.in",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "student",
     rollNumber:"2019imt-110"
   },
   {
-    name: "harshit dave",
+    name: "Harshit Dave",
     email: "imt_2019036@iiitm.ac.in",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "student",
     rollNumber:"2019imt-036"
   },
   {
-    name: "jalaj varshney",
+    name: "Jalaj Varshney",
     email: "jv@gm.com",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "alumni",
+    currentCompany:"Amazon",
+    jobRole:"Software Developer",
+    yearOfPassing:"2020"
   },
   {
-    name: "hardik khandelwal",
+    name: "Hardik Khandelwal",
     email: "hk@gm.com",
-    password: bcrypt.hashSync("1234", 10),
+    password: "1234",
     role: "alumni",
-  },
-
-  {
-    name: "gaurav kaushal",
-    email: "gk@iiitm.ac.in",
-    password: bcrypt.hashSync("1234", 10),
-    role: "faculty",
+    currentCompany:"Amazon",
+    jobRole:"Software Developer",
+    yearOfPassing:"2020"
   },
   {
-    name: "joydip dhar",
-    email: "jd@iiitm.ac.in",
-    password: bcrypt.hashSync("1234", 10),
-    role: "faculty",
+    name: "Prajwal Singh",
+    email: "ps@gm.com",
+    password: "1234",
+    role: "alumni",
+    currentCompany:"Gojek",
+    jobRole:"Software Developer",
+    yearOfPassing:"2021"
   },
+  {
+    name: "Dr.Pinku Ranjan",
+    email: "pr@gm.com",
+    password: "1234",
+    role: "faculty",
+    designation:"Assistant Professor",
+    honour:"Ph.D. (Indian Institute of Technology IIT (ISM), Dhanbad)",
+    department:"Electrical / Electronics"
+  },
+  {
+    email:"gk@gm.com",
+    password:"1234",
+    name:"Dr.Gaurav Kaushal",
+    role:"faculty",
+    designation:"Assistant Professor",
+    honour:"PhD (IIT, Roorkee)",
+  },
+  {
+    email:"pg@gm.com",
+    password:"1234",
+    name:"Pankaj Gupta",
+    role:"admin",
+    designation:"Registrar",
+  }
 ];
 export default users;
