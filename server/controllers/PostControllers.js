@@ -148,11 +148,22 @@ const getFavouritePosts = async (req, res) => {
     return res.status(500).json({ message: `Server error` });
   }
 };
-
+const getPostByUserId=async(req,res)=>{
+  try {
+    const {userId}=req.params
+    let posts=[]
+    posts=await Post.find({user:userId}).populate("user")
+    res.status(200).json(posts)
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: `Server error` });
+  }
+}
 export {
   deletePost,
   createPost,
   getPostByCategory,
   likePost,
   getFavouritePosts,
+  getPostByUserId
 };

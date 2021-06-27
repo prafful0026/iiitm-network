@@ -21,7 +21,7 @@ import axios from "axios";
 import uploadPic from "../../utils/uploadPicToCloudinary";
 
 export const getPosts =
-  (postCategory, isFavourite = false) =>
+  (postCategory, isFavourite = false,isUserById=false) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -33,8 +33,11 @@ export const getPosts =
         headers: { Authorization: token },
       });
       let res;
-
-      if (isFavourite) {
+      if(isUserById)
+      {
+        res = await Axios.get(`/user/${postCategory}`);
+      }
+      else if (isFavourite) {
         res = await Axios.get(`/favourite`);
       } else {
         res = await Axios.get(`/category/${postCategory}`);

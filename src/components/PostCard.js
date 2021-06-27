@@ -64,7 +64,6 @@ export default function PostCard({ post,keyword }) {
           avatar={
             <Avatar
               src={userProfilePic}
-              aria-label='recipe'
               className={classes.avatar}
             />
           }
@@ -80,7 +79,6 @@ export default function PostCard({ post,keyword }) {
       <CardMedia
         // className={classes.media}
         image={picUrl}
-        title='Paella dish'
       >
         <img style={{ height: "100%", width: "100%" }} src={picUrl} />
       </CardMedia>

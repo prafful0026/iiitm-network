@@ -14,8 +14,8 @@ import WorkIcon from "@material-ui/icons/Work";
 
 const useStyles = makeStyles({
   root: {
-    width: "600px",
-    minWidth: "450px",
+    // width: "600px",
+    // minWidth: "450px",
     display: "flex",
     flexDirection:"column",
   },
