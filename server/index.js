@@ -14,19 +14,16 @@ import { Server } from 'socket.io';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 connectDB();
-
 const app = express();
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-  const buildPath = path.join(__dirname, '..', 'build');
-app.use(express.static(buildPath));
+// const __dirname = dirname(fileURLToPath(import.meta.url));
+// const __dirname = path.resolve();
 
-} 
-app.use(cors());
+
+// app.use(cors());
 
 const server = http.createServer(app); 
 const io = new Server(server,{
@@ -82,6 +79,17 @@ app.use("/api/user/", userRoutes);
 app.use("/api/student/", studentRoutes);
 app.use("/api/post/", postRoutes);
 app.use("/api/chat/", chatRoutes);
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+  app.get("*",(req,res)=>res.sendFile(path.resolve(__dirname,'..','build','index.html')));
+} else {
+  app.get("/", (req, res) => {
+    res.send("yo");
+  });
+}
 
  {
   app.get("/", (req, res) => {
