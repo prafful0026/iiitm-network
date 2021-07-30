@@ -16,6 +16,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { deletePost } from "../redux/actions/PostActions";
 import { Badge } from "@material-ui/core";
 import { likePost } from "../redux/actions/PostActions";
+import {useHistory,Link} from "react-router-dom"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 30,
@@ -34,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostCard({ post,keyword }) {
+export default function PostCard({ post,keyword,isSinglePost }) {
   const dispatch = useDispatch();
+  const history=useHistory()
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;
 
@@ -50,13 +53,13 @@ export default function PostCard({ post,keyword }) {
 
   const handleDelete = () => {
     const isFavourite=keyword==="favourite"
-    dispatch(deletePost(postId,isFavourite));
+    dispatch(deletePost(postId,isFavourite,isSinglePost));
   };
   const likePostHandler = () => {
     const isFavourite=keyword==="favourite"
-    dispatch(likePost(postId,isFavourite));
+    dispatch(likePost(postId,isFavourite,isSinglePost));
   };
-
+ 
   return (
     <Card className={classes.root}>
       <div className={classes.header}>
@@ -100,9 +103,11 @@ export default function PostCard({ post,keyword }) {
             )}
           </Badge>
         </IconButton>
-        <IconButton aria-label='share'>
-          <ShareIcon />
+        <Link to={`/post/${post._id}`}>
+        <IconButton aria-label='comment'>
+        <ShareIcon />
         </IconButton>
+        </Link>
       </CardActions>
     </Card>
   );

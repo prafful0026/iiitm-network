@@ -15,7 +15,13 @@ import {
   POST_LIKE_SUCCESS,
   POST_LIKE_FAIL,
   POST_DISLIKE_UPDATE,
-  POST_RESET
+  POST_RESET,
+  POST_GET_BYID_REQUEST,
+  POST_GET_BYID_SUCCESS,
+  POST_GET_BYID_FAIL,
+  SINGLE_POST_DELETE_UPDATE,
+  SINGLE_POST_DISLIKE_UPDATE,
+  SINGLE_POST_LIKE_UPDATE
 } from "../constants/PostConstants";
 
 export const getPostsReduer = (state = { posts: [] }, action) => {
@@ -120,6 +126,41 @@ export const likePostsReduer = (state = {}, action) => {
       return { loading: false, success: true };
     case POST_LIKE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getPostReduer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_GET_BYID_REQUEST:
+      return { loading: true };
+    case POST_GET_BYID_SUCCESS:
+      return { loading: false, post:action.payload };
+    case POST_GET_BYID_FAIL:
+      return { loading: false, error: action.payload };
+    case SINGLE_POST_LIKE_UPDATE:{
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          likes:[{user:action.payload.userId},...state.post.likes]
+        },
+      };
+    }
+    case SINGLE_POST_DISLIKE_UPDATE:
+    return {
+     ...state,
+     post:{
+       ...state.post,
+       likes:state.post.likes.filter(like=>like.user!=action.payload.userId)
+     }
+    }
+    case SINGLE_POST_DELETE_UPDATE:
+      return {
+        ...state,
+        post:null
+      }
     default:
       return state;
   }

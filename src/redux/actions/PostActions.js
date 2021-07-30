@@ -15,6 +15,12 @@ import {
   POST_LIKE_SUCCESS,
   POST_LIKE_FAIL,
   POST_DISLIKE_UPDATE,
+  POST_GET_BYID_REQUEST,
+  POST_GET_BYID_SUCCESS,
+  POST_GET_BYID_FAIL,
+  SINGLE_POST_DELETE_UPDATE,
+  SINGLE_POST_DISLIKE_UPDATE,
+  SINGLE_POST_LIKE_UPDATE
 } from "../constants/PostConstants";
 import BASE_URL from "../../utils/baseUrl.js";
 import axios from "axios";
@@ -103,7 +109,7 @@ export const createPost =
     }
   };
 
-export const deletePost = (postId,isFavourite=false) => async (dispatch) => {
+export const deletePost = (postId,isFavourite=false,isSinglePost) => async (dispatch) => {
   try {
     dispatch({
       type: POST_DELETE_REQUEST,
@@ -118,7 +124,10 @@ export const deletePost = (postId,isFavourite=false) => async (dispatch) => {
     dispatch({
       type: POST_DELETE_SUCCESS,
     });
+    if(!isSinglePost)
     dispatch({ type: POST_DELETE_UPDATE, payload:{ postId ,isFavourite}});
+    else
+    dispatch({type:SINGLE_POST_DELETE_UPDATE,payload:{ postId }})
   } catch (error) {
     dispatch({
       type: POST_DELETE_FAIL,
@@ -130,7 +139,7 @@ export const deletePost = (postId,isFavourite=false) => async (dispatch) => {
   }
 };
 
-export const likePost = (postId,isFavourite) => async (dispatch) => {
+export const likePost = (postId,isFavourite,isSinglePost) => async (dispatch) => {
   try {
     dispatch({
       type: POST_LIKE_REQUEST,
@@ -147,13 +156,52 @@ export const likePost = (postId,isFavourite) => async (dispatch) => {
     dispatch({
       type: POST_LIKE_SUCCESS,
     });
-    if (!data.isLiked)
+    if(isSinglePost)
+    {
+      if (!data.isLiked)
+      dispatch({ type: SINGLE_POST_LIKE_UPDATE, payload: { postId, userId } });
+    if (data.isLiked)
+      dispatch({ type: SINGLE_POST_DISLIKE_UPDATE, payload: { postId, userId ,isFavourite} });
+    }
+    else
+    {
+      if (!data.isLiked)
       dispatch({ type: POST_LIKE_UPDATE, payload: { postId, userId } });
     if (data.isLiked)
       dispatch({ type: POST_DISLIKE_UPDATE, payload: { postId, userId ,isFavourite} });
+    }
+    
   } catch (error) {
     dispatch({
       type: POST_LIKE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getPostById = (postId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: POST_GET_BYID_REQUEST,
+    });
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    const userId = JSON.parse(localStorage.getItem("userInfo")).userId;
+    const Axios = axios.create({
+      baseURL: `${BASE_URL}/api/post`,
+      headers: { Authorization: token },
+    });
+
+    const { data } = await Axios.get(`/${postId}`);
+    dispatch({
+      type: POST_GET_BYID_SUCCESS,
+      payload:data
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_GET_BYID_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -9,6 +9,7 @@ import Chat from "./pages/Chat"
 import ChatRoom from "./pages/ChatRoom";
 import { useSelector } from "react-redux";
 import FavouritePosts from "./pages/FavouritePosts";
+import Post from "./pages/Post"
 import React from "react";
 const App = () => {
   const loginInfo = useSelector((state) => state.userLogin);
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='/member/:userType' component={User} exact />
             <Route path='/discuss' component={Forum} exact />
             <Route path='/post/favourite' component={FavouritePosts} exact />
+            <Route path='/post/:postId' component={Post} exact />
             <Route path='/discuss/:postType' component={Posts} exact />
             <Route path='/chat' component={Chat} exact />
             <Route path='/chat/:userId' component={ChatRoom} exact />

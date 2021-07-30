@@ -7,6 +7,7 @@ import {
   createPostsReduer,
   deletePostsReduer,
   likePostsReduer,
+  getPostReduer
 } from "./reducers/PostReducers";
 import {recentChatsReducer} from "./reducers/ChatReducers" 
 
@@ -16,7 +17,8 @@ const reducer = combineReducers({
   postCreate: createPostsReduer,
   postDelete: deletePostsReduer,
   postLike: likePostsReduer,
-  recentChats:recentChatsReducer
+  recentChats:recentChatsReducer,
+  postById:getPostReduer
 });
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
