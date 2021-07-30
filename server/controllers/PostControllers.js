@@ -45,6 +45,24 @@ const getPostByCategory = async (req, res) => {
 };
 
 //DELETE POST BY ID
+const getPostById = async (req, res) => {
+  try {
+    const post = await Post.findOne({
+      _id: req.params.postId,
+    })
+      .populate("user")
+
+    if (!post) {
+      return res.status(404).json({ message: "Post Not Found" });
+    }
+
+    return res.json(post);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "server error" });
+  }
+};
+
 
 const deletePost = async (req, res) => {
   try {
@@ -165,5 +183,6 @@ export {
   getPostByCategory,
   likePost,
   getFavouritePosts,
-  getPostByUserId
+  getPostByUserId,
+  getPostById
 };

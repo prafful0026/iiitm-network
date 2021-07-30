@@ -18,12 +18,7 @@ dotenv.config();
 connectDB();
 const app = express();
 app.use(express.json());
-
-// const __dirname = dirname(fileURLToPath(import.meta.url));
-// const __dirname = path.resolve();
-
-
-// app.use(cors());
+app.use(cors());
 
 const server = http.createServer(app); 
 const io = new Server(server,{
