@@ -8,7 +8,6 @@ import PageHeader from "../components/PageHeader";
 import CommentCard from "../components/CommentCard";
 import { Divider } from "@material-ui/core";
 const Post = () => {
-  console.log("hi");
   const { postId } = useParams();
   const dispatch = useDispatch();
   const { post, loading, error } = useSelector((state) => state.postById);
@@ -17,8 +16,6 @@ const Post = () => {
     if(post&&!post[postId])
     dispatch(getPostById(postId));
   }, [postId]);
-
-  console.log(post && post[postId])
 
   const createComment = (text) => {
     dispatch(commentOnPost(text, postId));

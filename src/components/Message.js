@@ -3,7 +3,6 @@ import CalculateTime from "../utils/calculateTime";
 import "./messageStyles.css"
 
 function Message({ message, user,profilePicUrl, bannerProfilePic,divRef}) {
-//    console.log(message)
   const ifYouSender = message.sender === user;
 
   return (

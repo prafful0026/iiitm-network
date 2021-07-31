@@ -138,11 +138,9 @@ const likePost = async (req, res) => {
 const getFavouritePosts = async (req, res) => {
   try {
     const { userId } = req;
-    console.log(userId)
     const user = await User.findOne({ _id: userId }).populate(
       "favouritePosts.post"
     );
-    console.log(user)
     await user.populate("favouritePosts.post.user").execPopulate();
     let postToBeSent = [];
     user.favouritePosts.map((post) => {

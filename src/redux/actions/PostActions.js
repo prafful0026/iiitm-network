@@ -93,7 +93,6 @@ export const createPost =
           postDesc,
           picUrl,
         });
-        //  console.log(data)
 
         dispatch({
           type: POST_CREATE_SUCCESS,
@@ -155,11 +154,9 @@ export const likePost = (postId,isFavourite,isSinglePost) => async (dispatch) =>
     });
 
     const { data } = await Axios.put(`/like/${postId}`);
-    console.log(data)
     dispatch({
       type: POST_LIKE_SUCCESS,
     });
-    // console.log(isSinglePost)
     if(isSinglePost)
     {
       if (!data.isLiked)
@@ -219,7 +216,6 @@ export const commentOnPost = (text,postId) => async (dispatch) => {
     dispatch({
       type: POST_COMMENT_REQUEST,
     });
-    // console.log(text)
     const token = JSON.parse(localStorage.getItem("userInfo")).token;
     const Axios = axios.create({
       baseURL: `${BASE_URL}/api/post`,
