@@ -1,5 +1,6 @@
 import Post from "../models/PostModel.js";
 import User from "../models/UserModel.js";
+import { v4 as uuid } from 'uuid';
 //CREATE POST
 
 const createPost = async (req, res) => {
@@ -44,13 +45,12 @@ const getPostByCategory = async (req, res) => {
   }
 };
 
-//DELETE POST BY ID
+//GET POST BY ID
 const getPostById = async (req, res) => {
   try {
     const post = await Post.findOne({
       _id: req.params.postId,
-    })
-      .populate("user")
+    }).populate("user").populate("comments.user");;
 
     if (!post) {
       return res.status(404).json({ message: "Post Not Found" });
@@ -62,7 +62,6 @@ const getPostById = async (req, res) => {
     return res.status(500).json({ message: "server error" });
   }
 };
-
 
 const deletePost = async (req, res) => {
   try {
@@ -139,44 +138,81 @@ const likePost = async (req, res) => {
 const getFavouritePosts = async (req, res) => {
   try {
     const { userId } = req;
+    console.log(userId)
     const user = await User.findOne({ _id: userId }).populate(
       "favouritePosts.post"
     );
+    console.log(user)
     await user.populate("favouritePosts.post.user").execPopulate();
     let postToBeSent = [];
-    user.favouritePosts.map((post) =>{
-      post.post&&
-      postToBeSent.push({
-        _id: post.post._id,
-        postTitle: post.post.postTitle,
-        postDesc: post.post.postDesc,
-        picUrl: post.post.picUrl,
-        likes: post.post.likes,
-        createdAt: post.post.createdAt,
-        user:{
-          _id:post.post.user._id,
-          name:post.post.user.name,
-          profilePicUrl:post.post.user.profilePicUrl,
-        }
-      })}
-    ); 
+    user.favouritePosts.map((post) => {
+      post.post &&
+        postToBeSent.push({
+          _id: post.post._id,
+          postTitle: post.post.postTitle,
+          postDesc: post.post.postDesc,
+          picUrl: post.post.picUrl,
+          likes: post.post.likes,
+          createdAt: post.post.createdAt,
+          user: {
+            _id: post.post.user._id,
+            name: post.post.user.name,
+            profilePicUrl: post.post.user.profilePicUrl,
+          },
+        });
+    });
     return res.status(200).json(postToBeSent);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: `Server error hhrth h56eh ` });
+  }
+};
+const getPostByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    let posts = [];
+    posts = await Post.find({ user: userId })
+      .populate("user")
+      .sort({ createdAt: -1 });
+    res.status(200).json(posts);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: `Server error` });
   }
 };
-const getPostByUserId=async(req,res)=>{
+const createComment=async (req, res) => {
   try {
-    const {userId}=req.params
-    let posts=[]
-    posts=await Post.find({user:userId}).populate("user")
-    res.status(200).json(posts)
+    const { postId } = req.params;
+
+    const { userId } = req;
+    const { text } = req.body;
+
+    if (!text || text.length < 1)
+      return res.status(401).send({message:"Comment should be atleast 1 character"});
+
+    const post = await Post.findById(postId);
+
+    if (!post) return res.status(404).send({message:"Post not found"});
+    
+    const user = await User.findById(userId)
+    const newComment = {
+      _id: uuid(),
+      text,
+      user: userId,
+      date: Date.now()
+    };
+
+    await post.comments.unshift(newComment);
+    await post.save();
+
+    return res.status(200).json({...newComment,user:user});
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: `Server error` });
+    return res.status(500).send({message:`Server error`});
   }
-}
+};
+
+
 export {
   deletePost,
   createPost,
@@ -184,5 +220,6 @@ export {
   likePost,
   getFavouritePosts,
   getPostByUserId,
-  getPostById
+  getPostById,
+  createComment
 };
