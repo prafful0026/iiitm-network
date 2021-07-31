@@ -20,7 +20,10 @@ import {
   POST_GET_BYID_FAIL,
   SINGLE_POST_DELETE_UPDATE,
   SINGLE_POST_DISLIKE_UPDATE,
-  SINGLE_POST_LIKE_UPDATE
+  SINGLE_POST_LIKE_UPDATE,
+  POST_COMMENT_REQUEST,
+  POST_COMMENT_FAIL,
+  POST_COMMENT_SUCCESS
 } from "../constants/PostConstants";
 import BASE_URL from "../../utils/baseUrl.js";
 import axios from "axios";
@@ -44,7 +47,7 @@ export const getPosts =
         res = await Axios.get(`/user/${postCategory}`);
       }
       else if (isFavourite) {
-        res = await Axios.get(`/favourite`);
+        res = await Axios.get(`/profile/favourite`);
       } else {
         res = await Axios.get(`/category/${postCategory}`);
       }
@@ -156,6 +159,7 @@ export const likePost = (postId,isFavourite,isSinglePost) => async (dispatch) =>
     dispatch({
       type: POST_LIKE_SUCCESS,
     });
+    // console.log(isSinglePost)
     if(isSinglePost)
     {
       if (!data.isLiked)
@@ -202,6 +206,36 @@ export const getPostById = (postId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: POST_GET_BYID_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const commentOnPost = (text,postId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: POST_COMMENT_REQUEST,
+    });
+    // console.log(text)
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    const Axios = axios.create({
+      baseURL: `${BASE_URL}/api/post`,
+      headers: { Authorization: token },
+
+    });
+   
+    
+    const { data } = await Axios.post(`/comment/${postId}`,{text});
+    dispatch({
+      type: POST_COMMENT_SUCCESS,
+      payload:{newComment:data,postId}
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_COMMENT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
