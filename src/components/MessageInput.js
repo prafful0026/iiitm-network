@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
 }));
-const MessageInput = ({sendMsg}) => {
+const MessageInput = ({sendMsg,isComment}) => {
   const [message,setMessage]=useState("")
 
 
@@ -29,7 +29,7 @@ const MessageInput = ({sendMsg}) => {
         <form onSubmit={messageSendHandler} className={classes.form} autoComplete="off">
           <TextField
             id='outlined-basic'
-            label='Write Message'
+            label={ isComment?`Write comment`:`Write Message`}
             variant='outlined'
             className={classes.input}
             value={message}

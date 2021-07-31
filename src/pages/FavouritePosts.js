@@ -18,7 +18,7 @@ const FavouritePosts = () => {
     <Fragment>
       <PageHeader title='favourite posts' />
       <div className={styles.root}>
-        <PostDisplay keyword={location.pathname.split("/")[2]} />
+        <PostDisplay keyword={location.pathname.split("/")[3]} />
       </div>
     </Fragment>
   );

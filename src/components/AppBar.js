@@ -87,7 +87,7 @@ function NavBar({ handleDrawerToggle }) {
             </Badge>
           </IconButton>
           </Link>
-          <Link to="/post/favourite">
+          <Link to="/post/user/favourite">
           <IconButton  className={classes.chat}>
               <FavoriteIcon />
           </IconButton>

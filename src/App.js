@@ -24,7 +24,7 @@ const App = () => {
             <Route path='/' component={ProfilePage} exact />
             <Route path='/member/:userType' component={User} exact />
             <Route path='/discuss' component={Forum} exact />
-            <Route path='/post/favourite' component={FavouritePosts} exact />
+            <Route path='/post/user/favourite' component={FavouritePosts} exact />
             <Route path='/post/:postId' component={Post} exact />
             <Route path='/discuss/:postType' component={Posts} exact />
             <Route path='/chat' component={Chat} exact />
