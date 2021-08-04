@@ -4,7 +4,7 @@ import MessageInput from "../components/MessageInput";
 import Message from "../components/Message";
 import io from "socket.io-client";
 import BASE_URL from "../utils/baseUrl";
-import { useParams,Redirect,useHistory } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButton from "../components/BackButton";
 import Error from "../components/Error";
@@ -27,7 +27,7 @@ const ChatRoom = () => {
   useEffect(()=>{
     if(params.userId===userInfo.userId)
      history.replace("/")
-  })
+  },[history,params.userId,userInfo.userId])
   useEffect(() => {
     if (!socket.current) {
       socket.current = io(BASE_URL);
@@ -42,7 +42,7 @@ const ChatRoom = () => {
         socket.current.off();
       }
     };
-  }, []);
+  }, [userInfo.userId]);
 
   useEffect(() => {
     const loadMessages = () => {
@@ -71,7 +71,7 @@ const ChatRoom = () => {
     };
 
     if (socket.current) loadMessages();
-  }, []);
+  }, [params.userId,userInfo.userId]);
   const sendMsg = (msg) => {
     if (socket.current) {
       socket.current.emit("sendNewMsg", {
@@ -96,7 +96,7 @@ const ChatRoom = () => {
         }
       });
     }
-  }, []);
+  }, [params.userId]);
   useEffect(() => {
     messages.length > 0 && scrollDivToBottom(divRef);
   }, [messages]);

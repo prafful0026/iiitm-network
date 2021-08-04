@@ -5,6 +5,7 @@ import { getRecentChats } from "../redux/actions/ChatActions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import PageHeader from "../components/PageHeader"
+import Error from "../components/Error";
 const createStyles = makeStyles({
     root: {
       display: "flex",
@@ -20,11 +21,12 @@ const Chat = () => {
     (state) => state.recentChats
   );
   useEffect(() => {
-    if(recentChats.length==0)
+    if(recentChats?.length===0)
     dispatch(getRecentChats());
-  }, []);
+  }, [dispatch,recentChats?.length]);
   return (
     <div>
+      <Error error={error} />
       <PageHeader title="Recent Chats"/>
       {loading ? (
         <h1>Loading....</h1>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CalculateTime from "../utils/calculateTime";
 import "./messageStyles.css"
 
@@ -12,6 +12,7 @@ function Message({ message, user,profilePicUrl, bannerProfilePic,divRef}) {
       >
         <img
           className="inlineIcon"
+          alt="avatar"
           src={ifYouSender ?profilePicUrl : bannerProfilePic}
         />
 

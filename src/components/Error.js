@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 const Error = ({ error }) => {
   const [open, setOpen] = useState(true);
@@ -11,19 +11,21 @@ const Error = ({ error }) => {
   };
   return (
     <div>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "middle",
-        }}
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity='error'>
-          {error}
-        </Alert>
-      </Snackbar>
+      {error !== null && error !== undefined && error !== "" && (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "middle",
+          }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity='error'>
+            {error}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

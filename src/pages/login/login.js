@@ -5,6 +5,7 @@ import "./login.css";
 import { useHistory } from "react-router-dom";
 import React from "react";
 import Error from "../../components/Error";
+import Loader from "../../components/Loader";
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -26,8 +27,8 @@ const Login = () => {
   return (
     <Fragment>
     {error&&(<Error error={error}/>)}
+    <Loader loading={loading} />
     <div className="loginPage">
-        
       <div className="formContainer">
       <h2 >Login to IIITM Network</h2>
         <form onSubmit={submitHandler}>
@@ -48,7 +49,7 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
-          <button type='submit'>Login</button>
+          <button disabled={loading} type='submit'>{loading?"Loading...":"Login"}</button>
           </div>
         </form>
       </div>

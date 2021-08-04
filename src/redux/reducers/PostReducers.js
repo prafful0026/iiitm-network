@@ -47,7 +47,6 @@ export const getPostsReduer = (state = { posts: [] }, action) => {
       };
     }
     case POST_DELETE_UPDATE: {
-      if (action)
         return {
           ...state,
           posts: state.posts.filter(
@@ -182,7 +181,7 @@ export const getPostReduer = (state = { post: {} }, action) => {
           [action.payload.postId]: {
             ...state.post[action.payload.postId],
             likes: state.post[action.payload.postId].likes.filter(
-              (like) => like.user != action.payload.userId
+              (like) => like.user !== action.payload.userId
             ),
           },
         },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect,Fragment } from "react";
 import PostCard from "./PostCard";
 import { getPosts } from "../redux/actions/PostActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,14 @@ const PostDisplay = ({ keyword ,isUserById}) => {
   const dispatch = useDispatch();
   const postState = useSelector((state) => state.postsByCategory);
   const { error, posts, loading } = postState;
+
   useEffect(() => {
     const isFavourite = keyword === "favourite";
     dispatch(getPosts(keyword, isFavourite,isUserById));
     return () => {
       dispatch({ type: POST_RESET });
     };
-  }, [dispatch,keyword]);
+  }, [dispatch,keyword,isUserById]);
 
   return (
     <Fragment>

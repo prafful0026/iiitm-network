@@ -1,8 +1,8 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState,useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography, TextField, Button, makeStyles } from "@material-ui/core";
+import {  TextField, Button, makeStyles } from "@material-ui/core";
 import { createPost } from "../redux/actions/PostActions.js";
-
+import Error from "./Error.js";
 const useStyles = makeStyles({
   formStyles: {
     display: "flex",
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 const CreatePost = ({ location }) => {
-  const { success, loading, error, newPost } = useSelector(
+  const {loading, error } = useSelector(
     (state) => state.postCreate
   );
   const inputRef = useRef();
@@ -31,7 +31,6 @@ const CreatePost = ({ location }) => {
     flexDirection:"column",
     justifyContent:"center",
     textAlign: "center",
-    // maxHeight: "500px",
     width: "100%",
     border: "dotted",
     cursor: "pointer",
@@ -47,9 +46,6 @@ const CreatePost = ({ location }) => {
     setPostTitle("");
     setPostDesc("");
   };
-  // useEffect(() => {
-  //   if (success) 
-  // }, [success]);
 
   const titleInput = (e) => setPostTitle(e.target.value);
   const descInput = (e) => setPostDesc(e.target.value);
@@ -64,6 +60,7 @@ const CreatePost = ({ location }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Error error={error} /> 
       <form onSubmit={submitHanler} className={classes.formStyles}>
       <input
             ref={inputRef}
@@ -85,7 +82,6 @@ const CreatePost = ({ location }) => {
             <img
               src={mediaPreview}
               alt="PostImage"
-              // style={{height:"300px",width:"400px"}}
             />
           )} 
         </div>

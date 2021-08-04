@@ -11,9 +11,8 @@ const createStyles = makeStyles({
     borderStyle: "solid",
     borderWidth:"1px 0px",
     marginBottom:"10px",
-    borderColor:"black",
     color:"#3F51B5",
-    borderColor:"3F51B5  "
+    borderColor:"3F51B5"
   },
 });
 const PageHeader = ({ title }) => {

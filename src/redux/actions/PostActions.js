@@ -189,7 +189,6 @@ export const getPostById = (postId) => async (dispatch) => {
       type: POST_GET_BYID_REQUEST,
     });
     const token = JSON.parse(localStorage.getItem("userInfo")).token;
-    const userId = JSON.parse(localStorage.getItem("userInfo")).userId;
     const Axios = axios.create({
       baseURL: `${BASE_URL}/api/post`,
       headers: { Authorization: token },

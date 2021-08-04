@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deletePost } from "../redux/actions/PostActions";
 import { Badge } from "@material-ui/core";
 import { likePost } from "../redux/actions/PostActions";
-import {useHistory,Link} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PostCard({ post,keyword,isSinglePost }) {
   const dispatch = useDispatch();
-  const history=useHistory()
   const loginInfo = useSelector((state) => state.userLogin);
   const { userInfo } = loginInfo;
 
@@ -83,7 +82,7 @@ export default function PostCard({ post,keyword,isSinglePost }) {
         // className={classes.media}
         image={picUrl}
       >
-        <img style={{ height: "100%", width: "100%" }} src={picUrl} />
+        <img style={{ height: "100%", width: "100%" }} src={picUrl} alt="" />
       </CardMedia>
       <CardContent>
         <Typography variant='h6'>{postTitle}</Typography>

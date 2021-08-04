@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Avatar } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
 import { Badge } from "@material-ui/core";
@@ -59,7 +59,6 @@ function NavBar({ handleDrawerToggle }) {
   const { userInfo } = useSelector((state) => state.userLogin);
   const dispatch=useDispatch()
   const classes = useStyles();
-  const theme = useTheme();
   const logoutHandler=()=>{
      localStorage.removeItem("userInfo")
      dispatch({type:USER_LOGOUT})

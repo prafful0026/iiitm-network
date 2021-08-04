@@ -1,8 +1,7 @@
 import React from "react";
-import { Divider, Avatar, Grid, Paper, makeStyles } from "@material-ui/core";
+import { Avatar, Grid } from "@material-ui/core";
 import CalculateTime from "../utils/calculateTime";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const CommentCard = ({ comment:{user,...commentData} }) => {
   const {

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Card from "../components/Card";
 import { useParams } from "react-router";
 import BASE_URL from "../utils/baseUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import PageHeader from "../components/PageHeader";
-import MessageInput from "../components/MessageInput";
-import { makeStyles, Button, TextField, Icon } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 const Student = () => {
   const params = useParams();
@@ -28,14 +27,19 @@ const Student = () => {
     );
   };
   const { userInfo } = useSelector((state) => state.userLogin);
-  const Axios = axios.create({
-    baseURL: `${BASE_URL}/api/user/${params.userType}`,
-    headers: { Authorization: userInfo.token },
-  });
-  useEffect(async () => {
-    const { data } = await Axios.get("/");
-    setUsers(data);
-  }, [params]);
+  const Axios = useMemo(() => {
+    return axios.create({
+      baseURL: `${BASE_URL}/api/user/${params.userType}`,
+      headers: { Authorization: userInfo.token },
+    });
+  }, [params.userType, userInfo.token]);
+  useEffect(() => {
+    const getUsersData = async () => {
+      const { data } = await Axios.get("/");
+      setUsers(data);
+    };
+    getUsersData();
+  }, [Axios]);
 
   return (
     <div>

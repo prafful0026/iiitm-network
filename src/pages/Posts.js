@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import React,{useState} from "react";
+import React from "react";
 import CreatePost from "../components/CreatePost";
 import { useLocation } from "react-router-dom";
 import PostDisplay from "../components/PostDisplay";
@@ -13,11 +13,7 @@ const createStyles = makeStyles({
   },
 });
 const Posts = () => {
-  const [modalIsOpen,setIsOpen]=useState(false)
 
-  function openModal() {
-    setIsOpen(state=>!state);
-  }
   const location = useLocation();
   const classes = createStyles();
   return (

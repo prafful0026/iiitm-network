@@ -65,14 +65,13 @@ export default function ProfileCard({ user }) {
   const {
     name,
     profilePicUrl: image,
-    role,
     _id: userId,
     email,
     mobileNum,
   } = user.user;
   return (
     <Card className={classes.root} elevation={2}>
-      <img className={classes.media} src={image} />
+      <img className={classes.media} src={image} alt=""/>
       <div className={classes.info}>
         <div className={classes.header}>
           <CardHeader title={name.toUpperCase()} subheader={subHeading} />
