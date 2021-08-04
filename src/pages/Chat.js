@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import PageHeader from "../components/PageHeader"
 import Error from "../components/Error";
+import Loader from "../components/Loader";
 const createStyles = makeStyles({
     root: {
       display: "flex",
@@ -29,7 +30,7 @@ const Chat = () => {
       <Error error={error} />
       <PageHeader title="Recent Chats"/>
       {loading ? (
-        <h1>Loading....</h1>
+        <Loader loading={loading} />
       ) : (
         <div className={classes.root}>
           {recentChats.map((chat) => (

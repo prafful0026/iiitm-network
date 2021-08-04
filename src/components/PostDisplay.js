@@ -3,6 +3,8 @@ import PostCard from "./PostCard";
 import { getPosts } from "../redux/actions/PostActions";
 import { useDispatch, useSelector } from "react-redux";
 import { POST_RESET } from "../redux/constants/PostConstants";
+import Loader from "./Loader";
+import Error from "./Error";
 const PostDisplay = ({ keyword ,isUserById}) => {
   const dispatch = useDispatch();
   const postState = useSelector((state) => state.postsByCategory);
@@ -18,16 +20,14 @@ const PostDisplay = ({ keyword ,isUserById}) => {
 
   return (
     <Fragment>
-      {error && <h1>{error}</h1>}
-      {loading ? (
-        <h1>loading.....</h1>
-      ) : (
+      <Error error={error} />
+       <Loader loading={loading} />
         <Fragment>
-          { posts.length>0 &&
+          { posts && posts.length>0 &&
               posts.map((post) => <PostCard keyword={keyword} key={post._id} post={post} />)
               }
         </Fragment>
-      )}
+      
     </Fragment>
   );
 };
