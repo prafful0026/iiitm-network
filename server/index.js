@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+// import cors from "cors";
 import dotenv from "dotenv";
 import path from "path"
 import connectDB from "./config/connectDB.js"
@@ -18,7 +18,7 @@ dotenv.config();
 connectDB();
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 const server = http.createServer(app); 
 const io = new Server(server,{
