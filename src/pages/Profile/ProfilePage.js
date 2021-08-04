@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
   const [profile, setProfile] = useState();
   const Axios1 = useMemo(() => {
-    axios.create({
+    return axios.create({
       baseURL: `${BASE_URL}/api/user`,
       headers: { Authorization: userInfo.token },
     });
