@@ -17,11 +17,13 @@ const Student = () => {
     setInput(e.target.value);
     setSearchUsers(
       users.filter((user) => {
-        const searchTerm =
-          user.rollNumber || user.designation || user.currentCompany;
+        // const searchTerm =
+        //    || user.designation || user.currentCompany;
         return (
           user.user?.name?.toLowerCase().includes(input?.toLowerCase()) ||
-          searchTerm.includes(input?.toLowerCase())
+          user.rollNumber?.toLowerCase()?.includes(input?.toLowerCase()) ||
+          user.designation?.toLowerCase()?.includes(input?.toLowerCase()) ||
+          user.currentCompany?.toLowerCase()?.includes(input?.toLowerCase())
         );
       })
     );
