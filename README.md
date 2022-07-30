@@ -1,19 +1,15 @@
 # IIITM-NETWORK
 
-Deployed version - https://iiitm-network.herokuapp.com/login  
-
-Use these credentials to log in -   
-#1 Email - bcs_2019039@iiitm.ac.in Pass - 1234  
-#2 Email - imt_2019110@iiitm.ac.in Pass - 1234
 ## About
 
 A social networking platform for a college where all students, faculty members, admin staff, and alumni will be registered. This site will help them connect better through real-time chat and let them discuss many topics like placement, college, and many more. 
-
+## Connect with me
+[![gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prafful026@gmail.com)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prafful026/)
 ## Features
 
 - Registered users can login 
 - Users can  create post
-- Users can comment on and like a post
 - Users can like/dislike a post
 - Users can comment on a post
 - User can view other users profile
@@ -21,7 +17,7 @@ A social networking platform for a college where all students, faculty members, 
 - User can search other users
 - Real-time chat functionality, through which a user can chat with other users
 
-## Tech used
+## Built using
 ### Frontend
 - React.js  
 - Material UI  
@@ -33,6 +29,14 @@ A social networking platform for a college where all students, faculty members, 
 - MongoDB  
 - Express.js  
 - Socket.io  
+## Deployment
+
+- Deployed using Heroku 
+- Deployed version - https://iiitm-network.herokuapp.com/login  
+
+Use these credentials to log in -   
+- Email - bcs_2019039@iiitm.ac.in Password - 1234  
+- Email - imt_2019110@iiitm.ac.in Password - 1234
 
 ## Preview
 ### Login Screen
@@ -53,6 +57,4 @@ A social networking platform for a college where all students, faculty members, 
 ![Screenshot from 2022-07-25 16-41-00](https://user-images.githubusercontent.com/56275863/180764466-4508f5f3-791b-42ec-a518-be23205a41cf.png)
 ### User Listing Page
 ![Screenshot from 2022-07-25 16-42-01](https://user-images.githubusercontent.com/56275863/180764454-536c72c8-b6ad-4160-b38e-87fee339a1f4.png)
-## Connect with me
-[![gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prafful026@gmail.com)
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prafful026/)
+
