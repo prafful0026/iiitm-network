@@ -40,4 +40,6 @@ Socket.io
 ![Screenshot from 2022-07-25 16-41-00](https://user-images.githubusercontent.com/56275863/180764466-4508f5f3-791b-42ec-a518-be23205a41cf.png)
 ### User Listing Page
 ![Screenshot from 2022-07-25 16-42-01](https://user-images.githubusercontent.com/56275863/180764454-536c72c8-b6ad-4160-b38e-87fee339a1f4.png)
-
+### Connect with me
+[![gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prafful026@gmail.com)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prafful026/)
