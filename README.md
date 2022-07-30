@@ -8,18 +8,31 @@ Use these credentials to log in -
 ## About
 
 A social networking platform for a college where all students, faculty members, admin staff, and alumni will be registered. This site will help them connect better through real-time chat and let them discuss many topics like placement, college, and many more. 
+
+## Features
+
+- Registered users can login 
+- Users can  create post
+- Users can comment on and like a post
+- Users can like/dislike a post
+- Users can comment on a post
+- User can view other users profile
+- User can delete his/her own post
+- User can search other users
+- Real-time chat functionality, through which a user can chat with other users
+
 ## Tech used
 ### Frontend
-React.js  
-Material UI  
-HTML  
-CSS  
-Redux
+- React.js  
+- Material UI  
+- HTML  
+- CSS  
+- Redux
 ### Backend
-Node.js  
-MongoDB  
-Express.js  
-Socket.io  
+- Node.js  
+- MongoDB  
+- Express.js  
+- Socket.io  
 
 ## Preview
 ### Login Screen
@@ -40,6 +53,6 @@ Socket.io
 ![Screenshot from 2022-07-25 16-41-00](https://user-images.githubusercontent.com/56275863/180764466-4508f5f3-791b-42ec-a518-be23205a41cf.png)
 ### User Listing Page
 ![Screenshot from 2022-07-25 16-42-01](https://user-images.githubusercontent.com/56275863/180764454-536c72c8-b6ad-4160-b38e-87fee339a1f4.png)
-### Connect with me
+## Connect with me
 [![gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prafful026@gmail.com)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prafful026/)
